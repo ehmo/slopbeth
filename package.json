@@ -1,8 +1,24 @@
 {
   "name": "slopbeth",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "A source-locked anti-slop writing skill with benchmark artifacts.",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/ehmo/slopbeth.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ehmo/slopbeth/issues"
+  },
+  "homepage": "https://github.com/ehmo/slopbeth#readme",
+  "keywords": [
+    "writing",
+    "skill",
+    "anti-slop",
+    "editing",
+    "humanizer",
+    "benchmark"
+  ],
   "bin": {
     "slopbeth": "bin/slopbeth.js"
   },
@@ -13,7 +29,7 @@
     "bin",
     "docs",
     "references",
-    "scripts",
+    "scripts/*.py",
     "CHANGELOG.md",
     "LICENSE",
     "README.md"

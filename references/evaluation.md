@@ -10,6 +10,7 @@ No public benchmark fully measures "AI slop" as a writing defect. Use layered ev
 - writing quality: WritingBench plus revision corpora such as CoEdIT and IteraTeR
 - slop signs: public field guides for AI-writing tells
 - release evidence: local adversarial cases with gold notes and independent judges
+- literature basis: `docs/literature-basis.md`
 
 The target is not "classified as human." The target is source-locked, dense, non-generic prose with preserved facts.
 
@@ -19,10 +20,12 @@ This package ships:
 
 - `benchmarks/adversarial-pack-v1.jsonl`
 - `benchmarks/independent-judge-rows-v1.jsonl`
-- `benchmarks/comparison-v1.md`
+- `benchmarks/benchmark-v2.jsonl`
+- `benchmarks/independent-judge-rows-v2.jsonl`
+- `benchmarks/competitor-matrix-v2.md`
 - `benchmarks/public-detector-panel-v1.md`
 
-The adversarial pack has 60 cases across:
+The v1 adversarial pack has 60 prompt-only cases across:
 
 - marketing fluff
 - fake clarity
@@ -30,6 +33,8 @@ The adversarial pack has 60 cases across:
 - technical incident notes
 - policy copy
 - founder essays
+
+The v2 release corpus has 88 output-bearing cases across those lanes plus human controls, paired voice, dense risky prose, and detector-bait edits.
 
 ## Score model
 
@@ -61,7 +66,7 @@ python3 scripts/preservation_check.py original.txt rewrite.txt --format json
 python3 scripts/density_report.py original.txt rewrite.txt --format json
 ```
 
-Use semantic, signature, unsummarizability, and full benchmark scripts on corpora that include candidate outputs. The public adversarial pack contains prompts and gold notes; validate it with the package benchmark command.
+Use semantic, signature, unsummarizability, and full benchmark scripts on corpora that include candidate outputs. The v1 pack contains prompts and gold notes; the v2 pack contains candidate outputs and is the public release gate.
 
 Scripts report signals. They do not decide whether prose is good enough.
 

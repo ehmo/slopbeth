@@ -4,6 +4,8 @@ Date: 2026-06-18
 
 This is a rule-coverage benchmark. It compares Slopbeth against two public anti-slop baselines on the 60-case adversarial pack. It does not claim that any model output will always win in open-ended prose.
 
+Superseded for release decisions by `competitor-matrix-v2.md` and `benchmark-v2.jsonl`.
+
 ## Method
 
 Each tool was scored against the same case requirements:

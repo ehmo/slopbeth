@@ -2,7 +2,7 @@
 
 Slopbeth is a writing skill for removing AI slop without flattening the writer.
 
-The name is a play on Macbeth. Shakespeare was a fantastic writer because his lines carry pressure and consequence. Slopbeth applies that standard in a narrow way: every sentence should earn its place. If a summary can delete half the words without losing much, the draft is still padded.
+The name is a play on Macbeth. Shakespeare's best lines carry pressure and consequence. Slopbeth applies that standard in a narrow way: every sentence should earn its place. If a summary can delete half the words without losing much, the draft is still padded.
 
 ## Install
 
@@ -61,8 +61,11 @@ This package includes:
 
 - `benchmarks/adversarial-pack-v1.jsonl`: 60 adversarial cases across six business-writing genres.
 - `benchmarks/independent-judge-rows-v1.jsonl`: 180 judge rows, three per case.
-- `benchmarks/comparison-v1.md`: a rule-coverage benchmark against two public anti-slop baselines.
+- `benchmarks/benchmark-v2.jsonl`: 88 output-bearing cases across eight risk categories.
+- `benchmarks/independent-judge-rows-v2.jsonl`: 264 judge rows, three per v2 case.
+- `benchmarks/competitor-matrix-v2.md`: a rule, evidence, and package matrix against public anti-slop baselines.
 - `benchmarks/public-detector-panel-v1.md`: public detector evidence, framed as weak evidence.
+- `docs/literature-basis.md`: research and writing-craft basis for the benchmark gates.
 
 Run:
 
@@ -76,14 +79,14 @@ or:
 node bin/slopbeth.js benchmark
 ```
 
-The internal research run used hidden-gold forward tests, role-based judging, semantic checks, density gates, detector-panel records, clean-room scans, and RAID smoke validation on `omarchy`. No model was trained. Benchmark-driven skill iteration produced Slopbeth.
+Slopbeth was built by benchmark-driven iteration, not by model training. The shipped package test runs the v2 corpus through schema, preservation, semantic-drift, signature, and unsummarizability gates. Detector immunity is not claimed.
 
 ## Package shape
 
 - `SKILL.md`: versioned skill instructions
 - `references/`: deeper rules for taxonomy, voice, density, and evaluation
 - `scripts/`: repeatable checks used by the benchmark workflow
-- `benchmarks/`: public eval pack and comparison notes
+- `benchmarks/`: public eval packs and comparison notes
 - `bin/slopbeth.js`: installer and package checks
 
 ## License

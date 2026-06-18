@@ -6,7 +6,9 @@ The benchmark pack tests whether a rewrite keeps meaning while removing slop. It
 
 - `adversarial-pack-v1.jsonl`: 60 cases with gold notes.
 - `independent-judge-rows-v1.jsonl`: three judge rows for every case.
-- `comparison-v1.md`: rule-coverage comparison against two public baselines.
+- `benchmark-v2.jsonl`: 88 output-bearing cases with required facts and expected edit depth.
+- `independent-judge-rows-v2.jsonl`: three judge rows for every v2 case.
+- `competitor-matrix-v2.md`: rule, packaging, and evidence matrix against public baselines.
 - `public-detector-panel-v1.md`: detector-panel evidence and limits.
 
 ## Categories
@@ -17,6 +19,9 @@ The benchmark pack tests whether a rewrite keeps meaning while removing slop. It
 - technical incident notes
 - policy copy
 - founder essays
+- human-control text
+- paired-voice and mixed-language text
+- detector-bait text
 
 ## Pass standard
 
@@ -30,3 +35,5 @@ A strong rewrite:
 - stays dense enough that summary loses real ideas
 
 Detector output can be logged. It cannot overrule these checks.
+
+`node bin/slopbeth.js benchmark` runs the v2 corpus through schema, preservation, semantic-drift, signature, and unsummarizability gates.
