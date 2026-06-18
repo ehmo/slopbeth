@@ -1,0 +1,29 @@
+{
+  "name": "slopbeth",
+  "version": "1.0.0",
+  "description": "A source-locked anti-slop writing skill with benchmark artifacts.",
+  "license": "MIT",
+  "bin": {
+    "slopbeth": "bin/slopbeth.js"
+  },
+  "files": [
+    "SKILL.md",
+    "agents",
+    "benchmarks",
+    "bin",
+    "docs",
+    "references",
+    "scripts",
+    "CHANGELOG.md",
+    "LICENSE",
+    "README.md"
+  ],
+  "scripts": {
+    "doctor": "node bin/slopbeth.js doctor",
+    "benchmark": "node bin/slopbeth.js benchmark",
+    "test": "node bin/slopbeth.js doctor && node bin/slopbeth.js benchmark"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
