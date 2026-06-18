@@ -6,17 +6,19 @@ The name is a play on Macbeth. Shakespeare was a fantastic writer because his li
 
 ## Install
 
-Run:
+Run from GitHub:
 
 ```bash
-npx slopbeth install
+npx github:ehmo/slopbeth install
 ```
 
 The installer copies the skill into `~/.codex/skills/slopbeth` by default. To install somewhere else:
 
 ```bash
-npx slopbeth install /path/to/skills/slopbeth
+npx github:ehmo/slopbeth install /path/to/skills/slopbeth
 ```
+
+If the package is later published to npm, `npx slopbeth install` will work too.
 
 Direct install:
 
