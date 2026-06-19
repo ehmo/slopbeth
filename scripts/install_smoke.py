@@ -17,7 +17,9 @@ ROOT = Path(__file__).resolve().parents[1]
 REQUIRED_INSTALLED_FILES = [
     "SKILL.md",
     "BENCHMARKS.md",
-    "ROADMAP.md",
+    "CONTRIBUTING.md",
+    "SECURITY.md",
+    "SUPPORT.md",
     "agents/openai.yaml",
     "references/evaluation.md",
     "references/slop-taxonomy.md",
@@ -26,7 +28,6 @@ REQUIRED_INSTALLED_FILES = [
     "benchmarks/score-snapshot.md",
     "docs/false-positive-tracker.md",
     "docs/literature-basis.md",
-    "docs/release-report-v1.3.0.md",
     "scripts/run_benchmark.py",
     "scripts/competitor_output_score.py",
     "scripts/score_snapshot.py",

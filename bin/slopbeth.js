@@ -37,7 +37,7 @@ function copyEntry(name, target) {
 
 function install(target = defaultTarget()) {
   fs.mkdirSync(target, { recursive: true });
-  for (const entry of ["SKILL.md", "BENCHMARKS.md", "ROADMAP.md", "agents", "references", "scripts", "benchmarks", "docs"]) {
+  for (const entry of ["SKILL.md", "BENCHMARKS.md", "CONTRIBUTING.md", "SECURITY.md", "SUPPORT.md", "agents", "references", "scripts", "benchmarks", "docs"]) {
     copyEntry(entry, target);
   }
   console.log(`Installed Slopbeth ${version} to ${target}`);
@@ -76,8 +76,13 @@ function runCheck(command, args) {
 function doctor() {
   const required = [
     "BENCHMARKS.md",
+    "CODE_OF_CONDUCT.md",
+    "CONTRIBUTING.md",
+    "LICENSE",
+    "README.md",
+    "SECURITY.md",
     "SKILL.md",
-    "ROADMAP.md",
+    "SUPPORT.md",
     "agents/openai.yaml",
     "references/evaluation.md",
     "references/slop-taxonomy.md",
@@ -95,7 +100,6 @@ function doctor() {
     "docs/branch-protection.md",
     "docs/false-positive-tracker.md",
     "docs/literature-basis.md",
-    "docs/release-report-v1.3.0.md",
     "scripts/attribution_scan.py",
     "scripts/ci_secret_scan.py",
     "scripts/score_snapshot.py"

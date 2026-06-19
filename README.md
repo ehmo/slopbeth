@@ -2,36 +2,7 @@
 
 Slopbeth is the source-locked writing skill for removing AI slop without flattening the writer.
 
-It is for drafts that sound polished but empty: launch notes that promise momentum, support replies that overpromise, incident updates that turn failures into brand stories, and essays that swap detail for uplift.
-
 It does not "humanize" text by adding quirks. It cuts unsupported claims, preserves facts, protects voice, and leaves already-good writing alone.
-
-Install it:
-
-```bash
-npx github:ehmo/slopbeth install
-```
-
-Use it:
-
-```text
-Use $slopbeth to revise this draft while preserving my meaning and voice.
-```
-
-## why it works
-
-Most anti-slop passes chase surface tells. They ban a few phrases, add contractions, vary sentence length, or rough up the prose so it looks less machine-made.
-
-Slopbeth works from a stricter standard:
-
-- keep every sourced fact
-- cut claims that have no evidence
-- preserve uncertainty, dates, numbers, obligations, and voice
-- reject detector tricks that make the writing less true
-- leave already-good human text alone
-- make the prose dense enough that a summary loses real ideas
-
-The name is a play on Macbeth. Shakespeare's best lines carry pressure and consequence. Slopbeth applies that standard in a narrow way: every sentence should earn its place.
 
 ## proof
 
@@ -48,7 +19,7 @@ Ranked matrix:
 
 | Rank | Repo | Domain | Score | Strongest evidence | Limit |
 | ---: | --- | --- | ---: | --- | --- |
-| 1 | Slopbeth 1.3.1 | writing | 99 | 88-case v2 output corpus, 264 judge rows, span annotations, false-positive tracker, cadence gate, competitor-output panel, 25-case real competitor-agent panel, score snapshots, installer verification | English-first; detector panel remains weak evidence |
+| 1 | Slopbeth 1.3.2 | writing | 99 | 88-case v2 output corpus, 264 judge rows, span annotations, false-positive tracker, cadence gate, competitor-output panel, 25-case real competitor-agent panel, score snapshots, installer verification | English-first; detector panel remains weak evidence |
 | 2 | ch040602/anti-ai-slop | multi-artifact review | 91 | broad purpose taxonomy, finding format, authorship-claim caution | no output-bearing prose corpus found |
 | 3 | B1lli/remove-ai-flavor-writing-skill | Chinese writing | 90 | before/after fixtures, runnable audit, rhythm reports | language-specific; not an English benchmark |
 | 4 | blader/humanizer | writing | 84 | broad pattern catalog and false-positive guidance | limited public benchmark evidence |
@@ -64,6 +35,55 @@ Ranked matrix:
 | 14 | anti-slop UI/design repos | UI/design | 45 | deterministic checks and design anti-slop rules | adjacent domain, not prose eval |
 
 Read the v2 evidence in [BENCHMARKS.md](BENCHMARKS.md).
+
+## why it works
+
+Most anti-slop passes chase surface tells. They ban a few phrases, add contractions, vary sentence length, or rough up the prose so it looks less machine-made.
+
+Slopbeth uses a stricter standard:
+
+- keep every sourced fact
+- cut claims that have no evidence
+- preserve uncertainty, dates, numbers, obligations, and voice
+- reject detector tricks that make the writing less true
+- leave already-good human text alone
+- make the prose dense enough that a summary loses real ideas
+
+The name is a play on Macbeth. Shakespeare's best lines carry pressure and consequence. Slopbeth applies that standard in a narrow way: every sentence should earn its place.
+
+## install options
+
+Install into the default skill directory:
+
+```bash
+npx github:ehmo/slopbeth install
+```
+
+Install somewhere else:
+
+```bash
+npx github:ehmo/slopbeth install /path/to/skills/slopbeth
+```
+
+Direct install:
+
+```bash
+git clone git@github.com:ehmo/slopbeth.git
+cd slopbeth
+node bin/slopbeth.js install
+```
+
+Use it:
+
+```text
+Use $slopbeth to rewrite this. Preserve facts, dates, numbers, uncertainty, and my voice.
+```
+
+Review with it:
+
+```text
+Use $slopbeth to mark unsupported claims, bland-clean sentences, promise changes, and places where the draft sounds like AI.
+```
 
 ## example: marketing slop
 
@@ -145,53 +165,6 @@ No brand lesson. No apology theater. No fake closure.
 - over-humanizing: contractions, fragments, and personal asides added only for detector optics
 - over-editing: rewriting plain human sentences that should be left alone
 
-## install options
-
-Install into the default skill directory:
-
-```bash
-npx github:ehmo/slopbeth install
-```
-
-Install somewhere else:
-
-```bash
-npx github:ehmo/slopbeth install /path/to/skills/slopbeth
-```
-
-Direct install:
-
-```bash
-git clone git@github.com:ehmo/slopbeth.git
-cd slopbeth
-node bin/slopbeth.js install
-```
-
-## when to use it
-
-Use Slopbeth for:
-
-- founder notes
-- support replies
-- incident updates
-- policy copy
-- product pages
-- technical summaries
-- essays that need more pressure and less padding
-- any draft that feels "AI-clean" but not true enough
-
-Ask for a rewrite:
-
-```text
-Use $slopbeth to rewrite this. Preserve facts, dates, numbers, uncertainty, and my voice.
-```
-
-Ask for a review:
-
-```text
-Use $slopbeth to mark unsupported claims, bland-clean sentences, promise changes, and places where the draft sounds like AI.
-```
-
 ## what is included
 
 - a versioned writing skill
@@ -201,39 +174,20 @@ Use $slopbeth to mark unsupported claims, bland-clean sentences, promise changes
 - ranked competitor comparison
 - local scripts for people who want to inspect the evidence
 
-Read the v2 evidence in [BENCHMARKS.md](BENCHMARKS.md).
-
 ## limits
 
 Slopbeth does not promise detector immunity. Public detectors disagree, and detector-chasing can make writing worse. The useful target is prose that is specific, sourced, dense, and hard to summarize without losing meaning.
 
-## license
+## contribute
 
-MIT
-
-## roadmap
-
-Done:
-
-- installable versioned skill
-- source-lock, voice-preservation, density, and false-positive rules
-- public benchmark artifacts
-- real 25-case competitor-agent panel from omarchy
-- Ubicloud CI with score snapshots
-
-Release 1.0 made the skill installable and the evidence inspectable. Release 1.3 expands the public proof: 125 real competitor outputs across five skills, score snapshots, and a stronger README.
-
-Next:
-
-- publish to npm so `npx slopbeth install` works without the GitHub prefix
-- add manual judge rows for the 25-case real competitor panel
-- expand the real panel to 50 cases after those judge rows are stable
-- add issue templates for false-positive reports and bad rewrite reports
-
-The full plan is in [ROADMAP.md](ROADMAP.md).
+Read [CONTRIBUTING.md](CONTRIBUTING.md) before opening an issue or pull request. The most useful contributions are small public examples: a bad rewrite, the source text, the exact fact or voice that changed, and the expected behavior.
 
 ## discord
 
 Join the Discord to chat about Slopbeth, share examples, report bad rewrites, and talk about better ways to remove slop without flattening the writer:
 
 https://discord.gg/zmYmbN99
+
+## license
+
+MIT
