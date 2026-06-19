@@ -197,3 +197,9 @@ Next:
 - add issue templates for false-positive reports and bad rewrite reports
 
 The full plan is in [ROADMAP.md](ROADMAP.md).
+
+## discord
+
+Join the Discord to chat about Slopbeth, share examples, report bad rewrites, and talk about better ways to remove slop without flattening the writer:
+
+https://discord.gg/zmYmbN99
