@@ -10,7 +10,7 @@ Each row gets checked for:
 
 - installable package shape
 - versioned skill instructions
-- source-lock and fact-preservation rules
+- evidence-bound and fact-preservation rules
 - voice and false-positive controls
 - domain guardrails for support, policy, incidents, essays, and marketing
 - public benchmark artifacts
@@ -24,7 +24,7 @@ Scores are 100-point coverage scores. A higher score means the repo exposes stro
 
 | Rank | Repo | Domain | Score | Strongest evidence | Limit |
 | ---: | --- | --- | ---: | --- | --- |
-| 1 | Slopbeth 1.3.3 | writing | 99 | 88-case v2 output corpus, 264 judge rows, span annotations, false-positive tracker, cadence gate, competitor-output panel, 25-case real competitor-agent panel, score snapshots, installer verification | English-first; detector panel remains weak evidence |
+| 1 | Slopbeth 1.3.4 | writing | 99 | 88-case v2 output corpus, 264 judge rows, span annotations, false-positive tracker, cadence gate, competitor-output panel, 25-case real competitor-agent panel, score snapshots, installer verification | English-first; detector panel remains weak evidence |
 | 2 | ch040602/anti-ai-slop | multi-artifact review | 91 | broad purpose taxonomy, finding format, authorship-claim caution | no output-bearing prose corpus found |
 | 3 | B1lli/remove-ai-flavor-writing-skill | Chinese writing | 90 | before/after fixtures, runnable audit, rhythm reports | language-specific; not an English benchmark |
 | 4 | blader/humanizer | writing | 84 | broad pattern catalog and false-positive guidance | limited public benchmark evidence |
@@ -33,7 +33,7 @@ Scores are 100-point coverage scores. A higher score means the repo exposes stro
 | 7 | willmather95/human-copy | writing | 74 | explicit eval checklist | checklist-only; no full release corpus found |
 | 8 | stephenturner/skill-deslop | scientific prose | 72 | compact scientific-writing focus and references | no runnable benchmark found |
 | 9 | sirambrosio/humanink | writing | 70 | issue-backed false-positive tracker and modal-stacking pattern | pattern scoring can overflag human text |
-| 10 | hardikpandya/stop-slop | writing | 68 | compact phrase and structure catalogs, active issue/PR stream | weaker benchmark and source-lock evidence |
+| 10 | hardikpandya/stop-slop | writing | 68 | compact phrase and structure catalogs, active issue/PR stream | weaker benchmark and fact-preservation evidence |
 | 11 | jalaalrd/anti-ai-slop-writing | writing | 65 | compact cross-agent skill and banned-word list | detector claims need stronger caveats |
 | 12 | sermuns/is-it-slop | detector CLI | 58 | runnable CLI, CI, issue/PR improvement trail | repo-metadata detector, not writing-quality eval |
 | 13 | Chinese/Czech anti-slop variants | multilingual writing | 55 | language-specific punctuation and rhythm rules | separate language benchmarks needed |

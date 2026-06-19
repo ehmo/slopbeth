@@ -35,9 +35,9 @@ Concrete detail is only an improvement when it is licensed by the source, by sup
 
 For context-free rewrites, leave `unsafe` details out. Prefer sharper questions or bracketed placeholders over invented features, names, metrics, deadlines, owners, or workflows. In product or marketing copy, do not turn "workspace intelligence" or similar category language into asserted capabilities such as dashboards, status replacement, integrations, analytics, or outcomes unless source material supports them.
 
-## Source-locked mode
+## Evidence-bound mode
 
-Use source-locked mode when the draft is vague and no supporting context is present. The rewrite may improve rhythm, remove hype, tighten claims, or call out missing evidence, but it must not fill in the missing story.
+Use evidence-bound mode when the draft is vague and no supporting context is present. The rewrite may improve rhythm, remove hype, tighten claims, or call out missing evidence, but it must not fill in the missing story.
 
 Allowed moves:
 
@@ -55,7 +55,7 @@ Blocked moves:
 - product copy: invented dashboards, tabs, integrations, analytics, automations, metrics, or outcomes
 - strategy copy: invented quarterly plans, staffing moves, budget changes, owners, or governance rules
 
-When source-locked mode would leave the text abstract, say that plainly. The correct Slopbeth output can be a critique plus a request for missing facts; density cannot come from fictional specificity.
+When evidence-bound mode would leave the text abstract, say that plainly. The correct Slopbeth output can be a critique plus a request for missing facts; density cannot come from fictional specificity.
 
 ## Voice checklist
 
