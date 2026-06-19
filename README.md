@@ -1,8 +1,8 @@
-![Slopbeth banner](assets/slopbeth.png)
+![Slopbeth framed banner](assets/slopbeth.png)
 
 # Slopbeth
 
-Slopbeth is the source-locked writing skill for removing AI slop without flattening the writer.
+Slopbeth removes AI slop without changing what the draft can honestly claim.
 
 It does not "humanize" text by adding quirks. It cuts unsupported claims, preserves facts, protects voice, and leaves already-good writing alone.
 
@@ -21,7 +21,7 @@ Ranked matrix:
 
 | Rank | Repo | Domain | Score | Strongest evidence | Limit |
 | ---: | --- | --- | ---: | --- | --- |
-| 1 | Slopbeth 1.3.3 | writing | 99 | 88-case v2 output corpus, 264 judge rows, span annotations, false-positive tracker, cadence gate, competitor-output panel, 25-case real competitor-agent panel, score snapshots, installer verification | English-first; detector panel remains weak evidence |
+| 1 | Slopbeth 1.3.4 | writing | 99 | 88-case v2 output corpus, 264 judge rows, span annotations, false-positive tracker, cadence gate, competitor-output panel, 25-case real competitor-agent panel, score snapshots, installer verification | English-first; detector panel remains weak evidence |
 | 2 | ch040602/anti-ai-slop | multi-artifact review | 91 | broad purpose taxonomy, finding format, authorship-claim caution | no output-bearing prose corpus found |
 | 3 | B1lli/remove-ai-flavor-writing-skill | Chinese writing | 90 | before/after fixtures, runnable audit, rhythm reports | language-specific; not an English benchmark |
 | 4 | blader/humanizer | writing | 84 | broad pattern catalog and false-positive guidance | limited public benchmark evidence |
@@ -30,7 +30,7 @@ Ranked matrix:
 | 7 | willmather95/human-copy | writing | 74 | explicit eval checklist | checklist-only; no full release corpus found |
 | 8 | stephenturner/skill-deslop | scientific prose | 72 | compact scientific-writing focus and references | no runnable benchmark found |
 | 9 | sirambrosio/humanink | writing | 70 | issue-backed false-positive tracker and modal-stacking pattern | pattern scoring can overflag human text |
-| 10 | hardikpandya/stop-slop | writing | 68 | compact phrase and structure catalogs, active issue/PR stream | weaker benchmark and source-lock evidence |
+| 10 | hardikpandya/stop-slop | writing | 68 | compact phrase and structure catalogs, active issue/PR stream | weaker benchmark and fact-preservation evidence |
 | 11 | jalaalrd/anti-ai-slop-writing | writing | 65 | compact cross-agent skill and banned-word list | detector claims need stronger caveats |
 | 12 | sermuns/is-it-slop | detector CLI | 58 | runnable CLI, CI, issue/PR improvement trail | repo-metadata detector, not writing-quality eval |
 | 13 | Chinese/Czech anti-slop variants | multilingual writing | 55 | language-specific punctuation and rhythm rules | separate language benchmarks needed |
@@ -170,7 +170,7 @@ No brand lesson. No apology theater. No fake closure.
 ## what is included
 
 - a versioned writing skill
-- source-lock and voice-preservation rules
+- fact, evidence, and voice-preservation rules
 - density and unsummarizability rules
 - v2 benchmark artifacts
 - ranked competitor comparison

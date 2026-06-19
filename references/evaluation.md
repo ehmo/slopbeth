@@ -12,7 +12,7 @@ No public benchmark fully measures "AI slop" as a writing defect. Use layered ev
 - release evidence: the v2 output corpus with gold notes and independent judges
 - literature basis: `docs/literature-basis.md`
 
-The target is not "classified as human." The target is source-locked, dense, non-generic prose with preserved facts.
+The target is not "classified as human." The target is evidence-bound, dense, non-generic prose with preserved facts.
 
 ## Public pack
 

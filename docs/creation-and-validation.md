@@ -6,7 +6,7 @@ The workflow used:
 
 - benchmark research on detector credibility and writing evaluation
 - a fixed anti-slop taxonomy
-- source-locked rewrite rules
+- evidence-bound rewrite rules
 - hidden-gold forward tests
 - red, green, and refactor judge rows
 - semantic-drift checks
