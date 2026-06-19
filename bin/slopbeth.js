@@ -83,8 +83,6 @@ function doctor() {
     "references/slop-taxonomy.md",
     "references/density-and-unsummarizability.md",
     "references/voice-and-preservation.md",
-    "benchmarks/adversarial-pack-v1.jsonl",
-    "benchmarks/independent-judge-rows-v1.jsonl",
     "benchmarks/benchmark-v2.jsonl",
     "benchmarks/independent-judge-rows-v2.jsonl",
     "benchmarks/span-annotations-v1.jsonl",
@@ -92,7 +90,6 @@ function doctor() {
     "benchmarks/competitor-output-runs-v1.jsonl",
     "benchmarks/competitor-agent-runs-v1.jsonl",
     "benchmarks/score-snapshot.md",
-    "benchmarks/comparison-v1.md",
     "benchmarks/competitor-matrix-v2.md",
     "benchmarks/public-detector-panel-v1.md",
     "docs/branch-protection.md",
@@ -113,16 +110,8 @@ function doctor() {
 }
 
 function benchmark() {
-  const v1Pack = path.join(root, "benchmarks", "adversarial-pack-v1.jsonl");
-  const v1Judges = path.join(root, "benchmarks", "independent-judge-rows-v1.jsonl");
   const v2Pack = path.join(root, "benchmarks", "benchmark-v2.jsonl");
   const v2Judges = path.join(root, "benchmarks", "independent-judge-rows-v2.jsonl");
-  const v1Rows = countJsonl(v1Pack);
-  const v1JudgeRows = countJsonl(v1Judges);
-  if (v1Rows < 50 || v1JudgeRows < v1Rows * 3) {
-    console.error(`Benchmark v1 coverage is too small: ${v1Rows} cases, ${v1JudgeRows} judge rows.`);
-    process.exit(1);
-  }
 
   const v2Rows = readJsonl(v2Pack);
   const v2JudgeRows = readJsonl(v2Judges);
@@ -166,7 +155,7 @@ function benchmark() {
   runCheck("python3", ["scripts/competitor_output_score.py", "--corpus", "benchmarks/benchmark-v2.jsonl", "--panel", "benchmarks/competitor-output-runs-v1.jsonl", "--fail-gate", "--format", "json"]);
   runCheck("python3", ["scripts/competitor_output_score.py", "--corpus", "benchmarks/benchmark-v2.jsonl", "--panel", "benchmarks/competitor-agent-runs-v1.jsonl", "--min-competitors", "5", "--min-cases", "25", "--min-slopbeth-case-win-rate", "0.7", "--fail-gate", "--format", "json"]);
 
-  console.log(`Benchmark packs ready: ${v1Rows} v1 prompt cases, ${v2Rows.length} v2 output-bearing cases, ${v2JudgeRows.length} v2 judge rows, plus span, false-positive, cadence, competitor-output, and competitor-agent gates.`);
+  console.log(`Benchmark pack ready: ${v2Rows.length} v2 output-bearing cases, ${v2JudgeRows.length} v2 judge rows, plus span, false-positive, cadence, competitor-output, and competitor-agent gates.`);
 }
 
 function smoke() {

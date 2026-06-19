@@ -9,7 +9,7 @@ No public benchmark fully measures "AI slop" as a writing defect. Use layered ev
 - detector credibility: RAID plus SemEval-2024 Task 8 and M4GT-Bench
 - writing quality: WritingBench plus revision corpora such as CoEdIT and IteraTeR
 - slop signs: public field guides for AI-writing tells
-- release evidence: local adversarial cases with gold notes and independent judges
+- release evidence: the v2 output corpus with gold notes and independent judges
 - literature basis: `docs/literature-basis.md`
 
 The target is not "classified as human." The target is source-locked, dense, non-generic prose with preserved facts.
@@ -18,8 +18,6 @@ The target is not "classified as human." The target is source-locked, dense, non
 
 This package ships:
 
-- `benchmarks/adversarial-pack-v1.jsonl`
-- `benchmarks/independent-judge-rows-v1.jsonl`
 - `benchmarks/benchmark-v2.jsonl`
 - `benchmarks/independent-judge-rows-v2.jsonl`
 - `benchmarks/span-annotations-v1.jsonl`
@@ -29,10 +27,9 @@ This package ships:
 - `benchmarks/score-snapshot.md`
 - `benchmarks/competitor-matrix-v2.md`
 - `benchmarks/public-detector-panel-v1.md`
-- `docs/release-report-v1.2.1.md`
 - `docs/release-report-v1.3.0.md`
 
-The v1 adversarial pack has 60 prompt-only cases across:
+The v2 release corpus has 88 output-bearing English cases across:
 
 - marketing fluff
 - fake clarity
@@ -40,8 +37,12 @@ The v1 adversarial pack has 60 prompt-only cases across:
 - technical incident notes
 - policy copy
 - founder essays
+- human controls
+- paired voice
+- dense risky prose
+- detector-bait edits
 
-The v2 release corpus has 88 output-bearing cases across those lanes plus human controls, paired voice, dense risky prose, and detector-bait edits. The 1.2 gates add exact span annotations, false-positive restraint rows, cadence scoring, and a shared-case competitor-output panel. The 1.3 gate adds 25 real competitor-agent cases, score snapshots, and install-smoke coverage.
+The v2 gate includes exact span annotations, false-positive restraint rows, cadence scoring, shared-case competitor outputs, 25 real competitor-agent cases, score snapshots, and installer verification.
 
 ## Score model
 
@@ -73,7 +74,7 @@ python3 scripts/preservation_check.py original.txt rewrite.txt --format json
 python3 scripts/density_report.py original.txt rewrite.txt --format json
 ```
 
-Use semantic, signature, cadence, unsummarizability, and full benchmark scripts on corpora that include candidate outputs. Use span, false-positive, competitor-output, score-snapshot, and install-smoke scripts when maintaining bundled benchmark artifacts. The v1 pack contains prompts and gold notes; the v2 pack contains candidate outputs and is the public release gate.
+Use semantic, signature, cadence, unsummarizability, and full benchmark scripts on corpora that include candidate outputs. Use span, false-positive, competitor-output, score-snapshot, and install-smoke scripts when maintaining bundled benchmark artifacts. The v2 pack contains candidate outputs and is the public release gate.
 
 Scripts report signals. They do not decide whether prose is good enough.
 

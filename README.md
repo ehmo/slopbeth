@@ -1,8 +1,10 @@
 # Slopbeth
 
-Slopbeth is a writing skill that removes AI slop without flattening the writer.
+Slopbeth is the source-locked writing skill for removing AI slop without flattening the writer.
 
 It is for drafts that sound polished but empty: launch notes that promise momentum, support replies that overpromise, incident updates that turn failures into brand stories, and essays that swap detail for uplift.
+
+It does not "humanize" text by adding quirks. It cuts unsupported claims, preserves facts, protects voice, and leaves already-good writing alone.
 
 Install it:
 
@@ -30,6 +32,38 @@ Slopbeth works from a stricter standard:
 - make the prose dense enough that a summary loses real ideas
 
 The name is a play on Macbeth. Shakespeare's best lines carry pressure and consequence. Slopbeth applies that standard in a narrow way: every sentence should earn its place.
+
+## proof
+
+Slopbeth is ranked first in the public anti-slop comparison because it ships rules and evidence together: an 88-case v2 output corpus, 264 judge rows, span annotations, false-positive rows, cadence checks, competitor-output panels, and a 25-case real competitor-agent panel from omarchy.
+
+Current v2 result:
+
+- Slopbeth wins 23 of 25 real competitor-agent cases.
+- Slopbeth preserves required facts with zero missing required facts in the panel.
+- Slopbeth records zero forbidden-output hits and zero hard signatures in the panel.
+- The release gate requires the v2 corpus, false-positive tracker, span annotations, cadence checks, and competitor-agent panel to pass.
+
+Ranked matrix:
+
+| Rank | Repo | Domain | Score | Strongest evidence | Limit |
+| ---: | --- | --- | ---: | --- | --- |
+| 1 | Slopbeth 1.3.1 | writing | 99 | 88-case v2 output corpus, 264 judge rows, span annotations, false-positive tracker, cadence gate, competitor-output panel, 25-case real competitor-agent panel, score snapshots, installer verification | English-first; detector panel remains weak evidence |
+| 2 | ch040602/anti-ai-slop | multi-artifact review | 91 | broad purpose taxonomy, finding format, authorship-claim caution | no output-bearing prose corpus found |
+| 3 | B1lli/remove-ai-flavor-writing-skill | Chinese writing | 90 | before/after fixtures, runnable audit, rhythm reports | language-specific; not an English benchmark |
+| 4 | blader/humanizer | writing | 84 | broad pattern catalog and false-positive guidance | limited public benchmark evidence |
+| 5 | Laith0003/ux-skill | UI/design | 82 | deterministic checks and rule corpus | not a prose-writing benchmark |
+| 6 | d-wwei/great-writer | writing modes | 78 | mode-specific writing lanes | limited fixture evidence |
+| 7 | willmather95/human-copy | writing | 74 | explicit eval checklist | checklist-only; no full release corpus found |
+| 8 | stephenturner/skill-deslop | scientific prose | 72 | compact scientific-writing focus and references | no runnable benchmark found |
+| 9 | sirambrosio/humanink | writing | 70 | issue-backed false-positive tracker and modal-stacking pattern | pattern scoring can overflag human text |
+| 10 | hardikpandya/stop-slop | writing | 68 | compact phrase and structure catalogs, active issue/PR stream | weaker benchmark and source-lock evidence |
+| 11 | jalaalrd/anti-ai-slop-writing | writing | 65 | compact cross-agent skill and banned-word list | detector claims need stronger caveats |
+| 12 | sermuns/is-it-slop | detector CLI | 58 | runnable CLI, CI, issue/PR improvement trail | repo-metadata detector, not writing-quality eval |
+| 13 | Chinese/Czech anti-slop variants | multilingual writing | 55 | language-specific punctuation and rhythm rules | separate language benchmarks needed |
+| 14 | anti-slop UI/design repos | UI/design | 45 | deterministic checks and design anti-slop rules | adjacent domain, not prose eval |
+
+Read the v2 evidence in [BENCHMARKS.md](BENCHMARKS.md).
 
 ## example: marketing slop
 
@@ -163,11 +197,11 @@ Use $slopbeth to mark unsupported claims, bland-clean sentences, promise changes
 - a versioned writing skill
 - source-lock and voice-preservation rules
 - density and unsummarizability rules
-- public benchmark artifacts
-- competitor comparison artifacts
+- v2 benchmark artifacts
+- ranked competitor comparison
 - local scripts for people who want to inspect the evidence
 
-Read the evidence in [BENCHMARKS.md](BENCHMARKS.md).
+Read the v2 evidence in [BENCHMARKS.md](BENCHMARKS.md).
 
 ## limits
 

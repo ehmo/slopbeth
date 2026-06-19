@@ -1,46 +1,45 @@
-# Benchmarks
+# v2 benchmark evidence
 
-Slopbeth treats benchmarks as evidence, not decoration.
+Slopbeth uses one public release benchmark: the v2 output corpus.
 
-The benchmark suite asks one question: did the rewrite become more specific, more truthful, and less generic without losing the writer's meaning?
+The question is simple: did the rewrite become more specific, more truthful, and less generic without losing the writer's meaning?
 
-## current snapshot
+## current corpus
 
-- 60 prompt-only adversarial cases
-- 88 output-bearing release cases
+- 88 output-bearing English cases
 - 264 independent judge rows
 - 8 span-annotation rows for long and risky samples
 - 12 false-positive rows for text that should be left alone or edited lightly
 - 25 real competitor-agent cases from omarchy
 - 125 real competitor-agent outputs across five skills
 
-Current real-agent result:
+## current result
 
 | Panel | Cases | Competitors | Slopbeth wins | Win rate |
 | --- | ---: | ---: | ---: | ---: |
 | public-rule outputs | 5 | 5 | 4 | 0.80 |
 | real agent outputs | 25 | 5 | 23 | 0.92 |
 
-The current score snapshot is in `benchmarks/score-snapshot.md`.
+In the real-agent panel, Slopbeth has:
 
-## what gets measured
+- 0 missing required facts
+- 0 forbidden-output hits
+- 0 hard signatures
 
-The suite checks:
+The current generated snapshot is `benchmarks/score-snapshot.md`.
 
-- fact preservation
-- missing required facts
-- forbidden claim residue
-- semantic drift
-- generic AI-writing signatures
-- over-polished cadence
-- false-positive restraint
-- summary-loss pressure
-- exact bad-span and preserved-span annotations
-- real competitor outputs on shared cases
+## what v2 measures
 
-## why detectors are not the target
+V2 checks the failure modes that make anti-slop rewrites dangerous:
 
-Detector output is weak evidence. It can be logged, but it cannot decide whether prose is good. A detector can punish human control text and reward text that is less true. Slopbeth uses detector-facing rows only to reject detector tricks that harm meaning or voice.
+- unsupported facts added during cleanup
+- changed support, policy, incident, or technical obligations
+- vague claims kept under cleaner wording
+- voice flattened into house style
+- already-good human text over-edited
+- detector-facing tricks that damage truth or meaning
+- over-polished cadence and repeated sentence starts
+- summary-loss pressure: a shorter version should lose real ideas
 
 ## real competitor-agent panel
 
@@ -52,25 +51,13 @@ The real panel runs the same 25 English cases through five public writing skills
 - skill-deslop
 - anti-ai-slop-writing
 
-The panel covers:
-
-- incident notes
-- policy copy
-- founder notes
-- academic summaries
-- support replies
-- marketing proof gaps
-- fake clarity
-- short human-control rows
-- voice-preservation rows
-- detector-bait rows
-- risky technical claims
+The panel covers incident notes, policy copy, founder notes, academic summaries, support replies, marketing proof gaps, fake clarity, human-control rows, voice preservation, detector bait, and risky technical claims.
 
 Raw outputs are stored in `benchmarks/competitor-agent-runs-v1.jsonl`.
 
 ## commands
 
-Run the full package gate:
+Run the full release gate:
 
 ```bash
 npm test
@@ -82,7 +69,7 @@ Run only the benchmark gate:
 node bin/slopbeth.js benchmark
 ```
 
-Generate a score snapshot:
+Generate the score snapshot:
 
 ```bash
 python3 scripts/score_snapshot.py
@@ -103,4 +90,4 @@ python3 scripts/competitor_output_score.py \
 
 ## release rule
 
-A release should not pass by sounding nice. It must preserve facts, avoid unsupported claims, retain voice, keep already-good text intact, and show its benchmark evidence.
+A release should not pass by sounding nice. It must preserve facts, avoid unsupported claims, retain voice, keep already-good text intact, and show v2 evidence.

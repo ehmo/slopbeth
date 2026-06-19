@@ -19,12 +19,10 @@ Slopbeth is built around one standard: remove slop without removing meaning.
 
 ## release 1.0
 
-The first public release shipped the installable skill and the first benchmark artifacts:
+The first public release shipped the installable skill and the first public evidence trail:
 
 - `SKILL.md`
 - installer and package checks
-- 60 adversarial prompt cases
-- 180 judge rows
 - detector evidence policy
 - public comparison notes
 
@@ -62,7 +60,7 @@ This release focuses on public trust and adoption:
 - 125 competitor outputs across five skills
 - score snapshot file
 - Ubicloud CI
-- install smoke coverage
+- installer verification
 - expanded public README
 - pulled-out benchmark documentation
 - branch-protection guidance

@@ -32,7 +32,6 @@ def competitor_summary(panel: str, min_competitors: int, min_cases: int, win_rat
 
 def markdown() -> str:
     version = json.loads((ROOT / "package.json").read_text(encoding="utf-8"))["version"]
-    v1_cases = count_jsonl(ROOT / "benchmarks" / "adversarial-pack-v1.jsonl")
     v2_cases = count_jsonl(ROOT / "benchmarks" / "benchmark-v2.jsonl")
     v2_judges = count_jsonl(ROOT / "benchmarks" / "independent-judge-rows-v2.jsonl")
     spans = count_jsonl(ROOT / "benchmarks" / "span-annotations-v1.jsonl")
@@ -45,7 +44,6 @@ def markdown() -> str:
         "",
         f"- Generated: {datetime.now(timezone.utc).isoformat()}",
         f"- Version: `{version}`",
-        f"- v1 adversarial cases: `{v1_cases}`",
         f"- v2 output-bearing cases: `{v2_cases}`",
         f"- v2 judge rows: `{v2_judges}`",
         f"- span annotation rows: `{spans}`",
