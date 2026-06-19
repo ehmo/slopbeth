@@ -24,7 +24,7 @@ Scores are 100-point coverage scores. A higher score means the repo exposes stro
 
 | Rank | Repo | Domain | Score | Strongest evidence | Limit |
 | ---: | --- | --- | ---: | --- | --- |
-| 1 | Slopbeth 1.3.2 | writing | 99 | 88-case v2 output corpus, 264 judge rows, span annotations, false-positive tracker, cadence gate, competitor-output panel, 25-case real competitor-agent panel, score snapshots, installer verification | English-first; detector panel remains weak evidence |
+| 1 | Slopbeth 1.3.3 | writing | 99 | 88-case v2 output corpus, 264 judge rows, span annotations, false-positive tracker, cadence gate, competitor-output panel, 25-case real competitor-agent panel, score snapshots, installer verification | English-first; detector panel remains weak evidence |
 | 2 | ch040602/anti-ai-slop | multi-artifact review | 91 | broad purpose taxonomy, finding format, authorship-claim caution | no output-bearing prose corpus found |
 | 3 | B1lli/remove-ai-flavor-writing-skill | Chinese writing | 90 | before/after fixtures, runnable audit, rhythm reports | language-specific; not an English benchmark |
 | 4 | blader/humanizer | writing | 84 | broad pattern catalog and false-positive guidance | limited public benchmark evidence |

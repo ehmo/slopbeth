@@ -1,6 +1,6 @@
 {
   "name": "slopbeth",
-  "version": "1.3.2",
+  "version": "1.3.3",
   "description": "A source-locked anti-slop writing skill with benchmark artifacts.",
   "license": "MIT",
   "repository": {
@@ -25,6 +25,7 @@
   "files": [
     "SKILL.md",
     "agents",
+    "assets",
     "benchmarks",
     "bin",
     "docs",
