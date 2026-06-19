@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import json
 import shutil
 import subprocess
 import tempfile
@@ -15,18 +16,25 @@ ROOT = Path(__file__).resolve().parents[1]
 
 REQUIRED_INSTALLED_FILES = [
     "SKILL.md",
+    "BENCHMARKS.md",
+    "ROADMAP.md",
     "agents/openai.yaml",
     "references/evaluation.md",
     "references/slop-taxonomy.md",
     "benchmarks/benchmark-v2.jsonl",
     "benchmarks/competitor-agent-runs-v1.jsonl",
+    "benchmarks/score-snapshot.md",
+    "docs/false-positive-tracker.md",
     "docs/literature-basis.md",
+    "docs/release-report-v1.3.0.md",
     "scripts/run_benchmark.py",
     "scripts/competitor_output_score.py",
+    "scripts/score_snapshot.py",
 ]
 
 
 def smoke_test(keep: bool) -> int:
+    version = json.loads((ROOT / "package.json").read_text(encoding="utf-8"))["version"]
     temp = Path(tempfile.mkdtemp(prefix="slopbeth-install-"))
     target = temp / "skills" / "slopbeth"
     try:
@@ -51,8 +59,8 @@ def smoke_test(keep: bool) -> int:
             return 1
 
         skill_text = (target / "SKILL.md").read_text(encoding="utf-8")
-        if "version: 1.2.1" not in skill_text:
-            print("Installed SKILL.md does not report version 1.2.1")
+        if f"version: {version}" not in skill_text:
+            print(f"Installed SKILL.md does not report version {version}")
             return 1
 
         print(f"Install smoke passed: {target}")

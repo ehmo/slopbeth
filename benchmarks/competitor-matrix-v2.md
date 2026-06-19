@@ -24,7 +24,7 @@ Scores are 100-point coverage scores. A higher score means the repo exposes stro
 
 | Rank | Repo | Domain | Score | Strongest evidence | Limit |
 | ---: | --- | --- | ---: | --- | --- |
-| 1 | Slopbeth 1.2.1 | writing | 98 | 88-case v2 output corpus, 264 judge rows, span annotations, false-positive tracker, cadence gate, competitor-output panel, real competitor-agent panel, install smoke test | English-first; detector panel remains weak evidence |
+| 1 | Slopbeth 1.3.0 | writing | 99 | 88-case v2 output corpus, 264 judge rows, span annotations, false-positive tracker, cadence gate, competitor-output panel, 25-case real competitor-agent panel, score snapshots, install smoke test | English-first; detector panel remains weak evidence |
 | 2 | ch040602/anti-ai-slop | multi-artifact review | 91 | broad purpose taxonomy, finding format, authorship-claim caution | no output-bearing prose corpus found |
 | 3 | B1lli/remove-ai-flavor-writing-skill | Chinese writing | 90 | before/after fixtures, runnable audit, rhythm reports | language-specific; not an English benchmark |
 | 4 | blader/humanizer | writing | 84 | broad pattern catalog and false-positive guidance | limited public benchmark evidence |
@@ -39,7 +39,7 @@ Scores are 100-point coverage scores. A higher score means the repo exposes stro
 | 13 | Chinese/Czech anti-slop variants | multilingual writing | 55 | language-specific punctuation and rhythm rules | separate language benchmarks needed |
 | 14 | anti-slop UI/design repos | UI/design | 45 | deterministic tests and design anti-slop rules | adjacent domain, not prose eval |
 
-## Adopted into v2 and 1.2.1
+## Adopted into v2 and 1.3.0
 
 - Fixture-pair discipline: v2 uses output-bearing rows, not prompt-only rows.
 - False-positive pressure: human-control rows require restraint.
@@ -50,8 +50,9 @@ Scores are 100-point coverage scores. A higher score means the repo exposes stro
 - Span review: exact bad-span and preserved-span rows now cover long and risky English samples.
 - Cadence scoring: the release gate now checks monotony, repeated starts, and over-polished transitions.
 - Competitor outputs: the panel scores shared-case outputs, not only repo packaging.
-- Competitor-agent outputs: 1.2.1 adds real shared-case runs from omarchy and gates Slopbeth at 8 of 10 case wins.
-- Install smoke: 1.2.1 verifies the package installer copies the files needed for use and benchmark maintenance.
+- Competitor-agent outputs: 1.3.0 expands real shared-case runs from omarchy to 25 cases and gates Slopbeth at 23 of 25 case wins.
+- Score snapshots: 1.3.0 writes a compact benchmark summary for release notes and pull requests.
+- Install smoke: 1.3.0 verifies the package installer copies the files needed for use and benchmark maintenance.
 - Multilingual lanes are deferred; the current release is English-only.
 
 ## Not adopted

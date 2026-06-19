@@ -1,0 +1,52 @@
+name: package
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: test
+    runs-on: ubicloud
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Show tool versions
+        run: |
+          node --version
+          npm --version
+          python3 --version
+
+      - name: Run package gates
+        run: npm test
+
+      - name: Pack dry run
+        run: npm pack --dry-run
+
+      - name: Attribution scan
+        run: python3 scripts/attribution_scan.py
+
+      - name: Secret scan
+        run: python3 scripts/ci_secret_scan.py
+
+      - name: Write score snapshot
+        run: |
+          python3 scripts/score_snapshot.py --output score-snapshot.md
+          cat score-snapshot.md >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload score snapshot
+        uses: actions/upload-artifact@v4
+        with:
+          name: score-snapshot
+          path: score-snapshot.md

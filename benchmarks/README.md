@@ -11,7 +11,8 @@ The benchmark pack tests whether a rewrite keeps meaning while removing slop. It
 - `span-annotations-v1.jsonl`: exact bad spans in inputs and preserved spans in outputs.
 - `false-positive-tracker-v1.jsonl`: plain English examples that should not be inflated.
 - `competitor-output-runs-v1.jsonl`: scored shared-case outputs for Slopbeth and public-rule baselines.
-- `competitor-agent-runs-v1.jsonl`: real shared-case competitor-agent outputs from omarchy.
+- `competitor-agent-runs-v1.jsonl`: 125 real shared-case competitor-agent outputs from omarchy.
+- `score-snapshot.md`: current benchmark score summary for releases and CI.
 - `competitor-matrix-v2.md`: rule, packaging, and evidence matrix against public baselines.
 - `public-detector-panel-v1.md`: detector-panel evidence and limits.
 

@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.3.0 - 2026-06-19
+
+- Expanded the real competitor-agent panel from 10 to 25 shared English cases.
+- Added a score snapshot artifact for pull requests and releases.
+- Added Ubicloud CI with package, pack, attribution, secret-pattern, and score-summary checks.
+- Rewrote the README as a marketing document and moved benchmark mechanics to `BENCHMARKS.md`.
+- Added `ROADMAP.md`, branch-protection guidance, and false-positive tracker maintenance notes.
+
 ## 1.2.1 - 2026-06-19
 
 - Added real shared-case competitor-agent outputs from omarchy.

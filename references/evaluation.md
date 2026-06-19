@@ -26,9 +26,11 @@ This package ships:
 - `benchmarks/false-positive-tracker-v1.jsonl`
 - `benchmarks/competitor-output-runs-v1.jsonl`
 - `benchmarks/competitor-agent-runs-v1.jsonl`
+- `benchmarks/score-snapshot.md`
 - `benchmarks/competitor-matrix-v2.md`
 - `benchmarks/public-detector-panel-v1.md`
 - `docs/release-report-v1.2.1.md`
+- `docs/release-report-v1.3.0.md`
 
 The v1 adversarial pack has 60 prompt-only cases across:
 
@@ -39,7 +41,7 @@ The v1 adversarial pack has 60 prompt-only cases across:
 - policy copy
 - founder essays
 
-The v2 release corpus has 88 output-bearing cases across those lanes plus human controls, paired voice, dense risky prose, and detector-bait edits. The 1.2 gates add exact span annotations, false-positive restraint rows, cadence scoring, and a shared-case competitor-output panel. The 1.2.1 gate adds real competitor-agent outputs and install-smoke coverage.
+The v2 release corpus has 88 output-bearing cases across those lanes plus human controls, paired voice, dense risky prose, and detector-bait edits. The 1.2 gates add exact span annotations, false-positive restraint rows, cadence scoring, and a shared-case competitor-output panel. The 1.3 gate adds 25 real competitor-agent cases, score snapshots, and install-smoke coverage.
 
 ## Score model
 
@@ -71,7 +73,7 @@ python3 scripts/preservation_check.py original.txt rewrite.txt --format json
 python3 scripts/density_report.py original.txt rewrite.txt --format json
 ```
 
-Use semantic, signature, cadence, unsummarizability, and full benchmark scripts on corpora that include candidate outputs. Use span, false-positive, competitor-output, and install-smoke scripts when maintaining bundled benchmark artifacts. The v1 pack contains prompts and gold notes; the v2 pack contains candidate outputs and is the public release gate.
+Use semantic, signature, cadence, unsummarizability, and full benchmark scripts on corpora that include candidate outputs. Use span, false-positive, competitor-output, score-snapshot, and install-smoke scripts when maintaining bundled benchmark artifacts. The v1 pack contains prompts and gold notes; the v2 pack contains candidate outputs and is the public release gate.
 
 Scripts report signals. They do not decide whether prose is good enough.
 

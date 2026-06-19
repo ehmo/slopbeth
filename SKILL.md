@@ -1,6 +1,6 @@
 ---
 name: slopbeth
-version: 1.2.1
+version: 1.3.0
 description: Use when drafting, editing, reviewing, or benchmarking prose to remove AI-writing tells while preserving meaning, voice, and density. Trigger this skill for requests about AI slop, humanizing AI-assisted writing, detector-facing validation, unsummarizable prose, voice preservation, or writing that should not sound generic.
 ---
 

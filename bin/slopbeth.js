@@ -37,7 +37,7 @@ function copyEntry(name, target) {
 
 function install(target = defaultTarget()) {
   fs.mkdirSync(target, { recursive: true });
-  for (const entry of ["SKILL.md", "agents", "references", "scripts", "benchmarks", "docs"]) {
+  for (const entry of ["SKILL.md", "BENCHMARKS.md", "ROADMAP.md", "agents", "references", "scripts", "benchmarks", "docs"]) {
     copyEntry(entry, target);
   }
   console.log(`Installed Slopbeth ${version} to ${target}`);
@@ -75,7 +75,9 @@ function runCheck(command, args) {
 
 function doctor() {
   const required = [
+    "BENCHMARKS.md",
     "SKILL.md",
+    "ROADMAP.md",
     "agents/openai.yaml",
     "references/evaluation.md",
     "references/slop-taxonomy.md",
@@ -89,10 +91,17 @@ function doctor() {
     "benchmarks/false-positive-tracker-v1.jsonl",
     "benchmarks/competitor-output-runs-v1.jsonl",
     "benchmarks/competitor-agent-runs-v1.jsonl",
+    "benchmarks/score-snapshot.md",
     "benchmarks/comparison-v1.md",
     "benchmarks/competitor-matrix-v2.md",
     "benchmarks/public-detector-panel-v1.md",
-    "docs/literature-basis.md"
+    "docs/branch-protection.md",
+    "docs/false-positive-tracker.md",
+    "docs/literature-basis.md",
+    "docs/release-report-v1.3.0.md",
+    "scripts/attribution_scan.py",
+    "scripts/ci_secret_scan.py",
+    "scripts/score_snapshot.py"
   ];
 
   const missing = required.filter((entry) => !fs.existsSync(path.join(root, entry)));
@@ -155,7 +164,7 @@ function benchmark() {
   runCheck("python3", ["scripts/span_annotation_check.py", "--corpus", "benchmarks/benchmark-v2.jsonl", "--annotations", "benchmarks/span-annotations-v1.jsonl", "--fail-gate", "--format", "json"]);
   runCheck("python3", ["scripts/false_positive_check.py", "--tracker", "benchmarks/false-positive-tracker-v1.jsonl", "--fail-gate", "--format", "json"]);
   runCheck("python3", ["scripts/competitor_output_score.py", "--corpus", "benchmarks/benchmark-v2.jsonl", "--panel", "benchmarks/competitor-output-runs-v1.jsonl", "--fail-gate", "--format", "json"]);
-  runCheck("python3", ["scripts/competitor_output_score.py", "--corpus", "benchmarks/benchmark-v2.jsonl", "--panel", "benchmarks/competitor-agent-runs-v1.jsonl", "--min-competitors", "5", "--min-cases", "10", "--min-slopbeth-case-win-rate", "0.7", "--fail-gate", "--format", "json"]);
+  runCheck("python3", ["scripts/competitor_output_score.py", "--corpus", "benchmarks/benchmark-v2.jsonl", "--panel", "benchmarks/competitor-agent-runs-v1.jsonl", "--min-competitors", "5", "--min-cases", "25", "--min-slopbeth-case-win-rate", "0.7", "--fail-gate", "--format", "json"]);
 
   console.log(`Benchmark packs ready: ${v1Rows} v1 prompt cases, ${v2Rows.length} v2 output-bearing cases, ${v2JudgeRows.length} v2 judge rows, plus span, false-positive, cadence, competitor-output, and competitor-agent gates.`);
 }
