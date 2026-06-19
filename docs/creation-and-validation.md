@@ -37,4 +37,4 @@ The release target is narrower and more useful:
 - fewer unsupported edits
 - clear benchmark artifacts
 
-The public package includes the current competitor matrix in `benchmarks/competitor-matrix-v2.md`, the score snapshot in `benchmarks/score-snapshot.md`, the release report in `docs/release-report-v1.3.0.md`, and the research basis in `docs/literature-basis.md`.
+The public package includes the current competitor matrix in `benchmarks/competitor-matrix-v2.md`, the score snapshot in `benchmarks/score-snapshot.md`, the v2 evidence page in `BENCHMARKS.md`, and the research basis in `docs/literature-basis.md`.

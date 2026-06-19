@@ -1,7 +1,7 @@
 # Slopbeth score snapshot
 
-- Generated: 2026-06-19T06:15:27.926787+00:00
-- Version: `1.3.1`
+- Generated: 2026-06-19T06:29:08.785749+00:00
+- Version: `1.3.2`
 - v2 output-bearing cases: `88`
 - v2 judge rows: `264`
 - span annotation rows: `8`

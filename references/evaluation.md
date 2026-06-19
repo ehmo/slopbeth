@@ -27,7 +27,6 @@ This package ships:
 - `benchmarks/score-snapshot.md`
 - `benchmarks/competitor-matrix-v2.md`
 - `benchmarks/public-detector-panel-v1.md`
-- `docs/release-report-v1.3.0.md`
 
 The v2 release corpus has 88 output-bearing English cases across:
 
@@ -74,7 +73,7 @@ python3 scripts/preservation_check.py original.txt rewrite.txt --format json
 python3 scripts/density_report.py original.txt rewrite.txt --format json
 ```
 
-Use semantic, signature, cadence, unsummarizability, and full benchmark scripts on corpora that include candidate outputs. Use span, false-positive, competitor-output, score-snapshot, and install-smoke scripts when maintaining bundled benchmark artifacts. The v2 pack contains candidate outputs and is the public release gate.
+Use semantic, signature, cadence, unsummarizability, and full benchmark scripts on corpora that include candidate outputs. Use span, false-positive, competitor-output, score-snapshot, and installer-verification scripts when maintaining bundled benchmark artifacts. The v2 pack contains candidate outputs and is the public release gate.
 
 Scripts report signals. They do not decide whether prose is good enough.
 
