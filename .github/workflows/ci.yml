@@ -44,9 +44,3 @@ jobs:
         run: |
           python3 scripts/score_snapshot.py --output score-snapshot.md
           cat score-snapshot.md >> "$GITHUB_STEP_SUMMARY"
-
-      - name: Upload score snapshot
-        uses: actions/upload-artifact@v4
-        with:
-          name: score-snapshot
-          path: score-snapshot.md

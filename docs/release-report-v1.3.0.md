@@ -36,7 +36,7 @@ The Ubicloud workflow runs:
 - secret-pattern scan
 - score snapshot generation
 
-The score snapshot is written to the pull request summary and uploaded as an artifact.
+The score snapshot is written to the pull request summary.
 
 ## limits
 

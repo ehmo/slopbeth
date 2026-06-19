@@ -60,7 +60,7 @@ This release focuses on public trust and adoption:
 
 - real 25-case competitor-agent panel from omarchy
 - 125 competitor outputs across five skills
-- score snapshot artifact
+- score snapshot file
 - Ubicloud CI
 - install smoke coverage
 - expanded public README
