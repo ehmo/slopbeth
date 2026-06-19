@@ -22,6 +22,9 @@ This package ships:
 - `benchmarks/independent-judge-rows-v1.jsonl`
 - `benchmarks/benchmark-v2.jsonl`
 - `benchmarks/independent-judge-rows-v2.jsonl`
+- `benchmarks/span-annotations-v1.jsonl`
+- `benchmarks/false-positive-tracker-v1.jsonl`
+- `benchmarks/competitor-output-runs-v1.jsonl`
 - `benchmarks/competitor-matrix-v2.md`
 - `benchmarks/public-detector-panel-v1.md`
 
@@ -34,7 +37,7 @@ The v1 adversarial pack has 60 prompt-only cases across:
 - policy copy
 - founder essays
 
-The v2 release corpus has 88 output-bearing cases across those lanes plus human controls, paired voice, dense risky prose, and detector-bait edits.
+The v2 release corpus has 88 output-bearing cases across those lanes plus human controls, paired voice, dense risky prose, and detector-bait edits. The 1.2 gates add exact span annotations, false-positive restraint rows, cadence scoring, and a shared-case competitor-output panel.
 
 ## Score model
 
@@ -66,7 +69,7 @@ python3 scripts/preservation_check.py original.txt rewrite.txt --format json
 python3 scripts/density_report.py original.txt rewrite.txt --format json
 ```
 
-Use semantic, signature, unsummarizability, and full benchmark scripts on corpora that include candidate outputs. The v1 pack contains prompts and gold notes; the v2 pack contains candidate outputs and is the public release gate.
+Use semantic, signature, cadence, unsummarizability, and full benchmark scripts on corpora that include candidate outputs. Use span, false-positive, and competitor-output scripts when maintaining bundled benchmark artifacts. The v1 pack contains prompts and gold notes; the v2 pack contains candidate outputs and is the public release gate.
 
 Scripts report signals. They do not decide whether prose is good enough.
 

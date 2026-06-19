@@ -1,6 +1,6 @@
 ---
 name: slopbeth
-version: 1.1.0
+version: 1.2.0
 description: Use when drafting, editing, reviewing, or benchmarking prose to remove AI-writing tells while preserving meaning, voice, and density. Trigger this skill for requests about AI slop, humanizing AI-assisted writing, detector-facing validation, unsummarizable prose, voice preservation, or writing that should not sound generic.
 ---
 
@@ -38,7 +38,7 @@ python3 scripts/preservation_check.py original.txt rewrite.txt --format json
 python3 scripts/density_report.py original.txt rewrite.txt --format json
 ```
 
-Use `signature_score.py`, `semantic_drift.py`, `unsummarizability_check.py`, and `run_benchmark.py` only on before/after corpora that include candidate outputs.
+Use `signature_score.py`, `cadence_score.py`, `semantic_drift.py`, `unsummarizability_check.py`, and `run_benchmark.py` only on before/after corpora that include candidate outputs. Use `span_annotation_check.py`, `false_positive_check.py`, and `competitor_output_score.py` when maintaining the bundled benchmarks.
 
 Load `references/evaluation.md` for the full benchmark and detector-evidence rules. In this package, use `scripts/` relative to the installed Slopbeth skill directory.
 
@@ -56,6 +56,8 @@ The scripts report signals. They do not decide whether prose is good enough.
 - Preserve qualifiers that carry scope; uncertainty; causality; risk; or legal/technical meaning.
 - Avoid replacing AI slop with a new formula: clipped aphorisms; tidy triads; forced contrast; dramatic fragments; or generic consultant voice.
 - Over-editing already strong human text is a failure. A light edit or "leave this alone" can be the correct output.
+- Mark exact spans when reviewing long or risky text: bad span; label; reason; preserved span; reason. If the exact span cannot be pointed to, treat the critique as too vague.
+- Check cadence before finalizing medium or long rewrites. Repeated sentence lengths, polished transition stacks, and repeated openers can be slop even when the words are not banned.
 - Avoid em dashes, emojis, title-case hype headings, and decorative bold unless the user's sample clearly uses them and the medium calls for them.
 - Keep the skill's internal checklist shape out of final prose. User-facing rewrites should not default to title-case sections; labeled vertical lists; exhaustive caveat blocks; or polished three-part scaffolds.
 - For detector-facing work, record structured rows with tool name; URL; date; text hash; raw result or screenshot path; result class; and limitation.

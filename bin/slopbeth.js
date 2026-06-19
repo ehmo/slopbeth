@@ -84,6 +84,9 @@ function doctor() {
     "benchmarks/independent-judge-rows-v1.jsonl",
     "benchmarks/benchmark-v2.jsonl",
     "benchmarks/independent-judge-rows-v2.jsonl",
+    "benchmarks/span-annotations-v1.jsonl",
+    "benchmarks/false-positive-tracker-v1.jsonl",
+    "benchmarks/competitor-output-runs-v1.jsonl",
     "benchmarks/comparison-v1.md",
     "benchmarks/competitor-matrix-v2.md",
     "benchmarks/public-detector-panel-v1.md",
@@ -145,9 +148,13 @@ function benchmark() {
   runCheck("python3", ["scripts/run_benchmark.py", "--corpus", "benchmarks/benchmark-v2.jsonl", "--summary-only", "--fail-release-gate"]);
   runCheck("python3", ["scripts/semantic_drift.py", "--corpus", "benchmarks/benchmark-v2.jsonl", "--quiet", "--fail-gate"]);
   runCheck("python3", ["scripts/signature_score.py", "--corpus", "benchmarks/benchmark-v2.jsonl", "--fail-gate", "--format", "json"]);
+  runCheck("python3", ["scripts/cadence_score.py", "--corpus", "benchmarks/benchmark-v2.jsonl", "--fail-gate", "--format", "json"]);
   runCheck("python3", ["scripts/unsummarizability_check.py", "--corpus", "benchmarks/benchmark-v2.jsonl", "--fail-gate", "--require-summary-loss", "--format", "json"]);
+  runCheck("python3", ["scripts/span_annotation_check.py", "--corpus", "benchmarks/benchmark-v2.jsonl", "--annotations", "benchmarks/span-annotations-v1.jsonl", "--fail-gate", "--format", "json"]);
+  runCheck("python3", ["scripts/false_positive_check.py", "--tracker", "benchmarks/false-positive-tracker-v1.jsonl", "--fail-gate", "--format", "json"]);
+  runCheck("python3", ["scripts/competitor_output_score.py", "--corpus", "benchmarks/benchmark-v2.jsonl", "--panel", "benchmarks/competitor-output-runs-v1.jsonl", "--fail-gate", "--format", "json"]);
 
-  console.log(`Benchmark packs ready: ${v1Rows} v1 prompt cases, ${v2Rows.length} v2 output-bearing cases, ${v2JudgeRows.length} v2 judge rows.`);
+  console.log(`Benchmark packs ready: ${v1Rows} v1 prompt cases, ${v2Rows.length} v2 output-bearing cases, ${v2JudgeRows.length} v2 judge rows, plus span, false-positive, cadence, and competitor-output gates.`);
 }
 
 const [command, maybeTarget] = process.argv.slice(2);

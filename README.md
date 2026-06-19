@@ -63,6 +63,9 @@ This package includes:
 - `benchmarks/independent-judge-rows-v1.jsonl`: 180 judge rows, three per case.
 - `benchmarks/benchmark-v2.jsonl`: 88 output-bearing cases across eight risk categories.
 - `benchmarks/independent-judge-rows-v2.jsonl`: 264 judge rows, three per v2 case.
+- `benchmarks/span-annotations-v1.jsonl`: exact bad-span and preserved-span annotations for long and risky rows.
+- `benchmarks/false-positive-tracker-v1.jsonl`: examples Slopbeth should leave alone or edit only lightly.
+- `benchmarks/competitor-output-runs-v1.jsonl`: shared-case output panel against public-rule baselines.
 - `benchmarks/competitor-matrix-v2.md`: a rule, evidence, and package matrix against public anti-slop baselines.
 - `benchmarks/public-detector-panel-v1.md`: public detector evidence, framed as weak evidence.
 - `docs/literature-basis.md`: research and writing-craft basis for the benchmark gates.
@@ -79,7 +82,7 @@ or:
 node bin/slopbeth.js benchmark
 ```
 
-Slopbeth was built by benchmark-driven iteration, not by model training. The shipped package test runs the v2 corpus through schema, preservation, semantic-drift, signature, and unsummarizability gates. Detector immunity is not claimed.
+Slopbeth was built by benchmark-driven iteration, not by model training. The shipped package test runs the v2 corpus through schema, preservation, semantic-drift, signature, cadence, unsummarizability, span-annotation, false-positive, and competitor-output gates. Detector immunity is not claimed.
 
 ## Package shape
 

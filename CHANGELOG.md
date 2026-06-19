@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.2.0 - 2026-06-19
+
+- Added span-level annotation checks for long and risky English benchmark rows.
+- Added a false-positive tracker for text that should be left alone or edited lightly.
+- Added cadence/read-aloud scoring for monotony, over-polished transitions, and repeated starts.
+- Added a shared-case competitor-output panel and score gate.
+
 ## 1.1.0 - 2026-06-18
 
 - Added the v2 output-bearing benchmark corpus with 88 cases and 264 judge rows.
