@@ -13,18 +13,66 @@ function usage() {
 
 Usage:
   slopbeth install [target-dir]
+  slopbeth installnpx [target-dir]
   slopbeth doctor
   slopbeth benchmark
   slopbeth smoke
 
-Default install target:
-  $SLOPBETH_SKILLS_DIR/slopbeth, or ~/.codex/skills/slopbeth when the variable is unset
+Default install:
+  Installs Slopbeth into supported global agent skill directories for Codex,
+  Claude Code, Hermes, OpenClaw, OpenCode, and Pi.
+
+Custom install:
+  slopbeth install /path/to/skills/slopbeth
 `);
 }
 
-function defaultTarget() {
-  const base = process.env.SLOPBETH_SKILLS_DIR || path.join(os.homedir(), ".codex", "skills");
-  return path.join(base, "slopbeth");
+const installEntries = [
+  "SKILL.md",
+  "BENCHMARKS.md",
+  "CONTRIBUTING.md",
+  "SECURITY.md",
+  "SUPPORT.md",
+  "agents",
+  "references",
+  "scripts",
+  "benchmarks",
+  "docs"
+];
+
+function xdgConfigHome() {
+  return process.env.XDG_CONFIG_HOME || path.join(os.homedir(), ".config");
+}
+
+function defaultTargets() {
+  const targets = [
+    { agent: "codex", target: path.join(os.homedir(), ".agents", "skills", "slopbeth") },
+    { agent: "codex-legacy", target: path.join(os.homedir(), ".codex", "skills", "slopbeth") },
+    { agent: "claude-code", target: path.join(os.homedir(), ".claude", "skills", "slopbeth") },
+    { agent: "hermes", target: path.join(os.homedir(), ".hermes", "skills", "slopbeth") },
+    { agent: "openclaw", target: path.join(os.homedir(), ".openclaw", "skills", "slopbeth") },
+    { agent: "opencode", target: path.join(xdgConfigHome(), "opencode", "skills", "slopbeth") },
+    { agent: "pi", target: path.join(os.homedir(), ".pi", "agent", "skills", "slopbeth") }
+  ];
+
+  if (process.env.SLOPBETH_SKILLS_DIR) {
+    targets.push({
+      agent: "custom",
+      target: path.join(process.env.SLOPBETH_SKILLS_DIR, "slopbeth")
+    });
+  }
+
+  return dedupeTargets(targets);
+}
+
+function dedupeTargets(targets) {
+  const seen = new Set();
+  return targets.filter(({ target }) => {
+    const resolved = path.resolve(target);
+    if (seen.has(resolved)) return false;
+    seen.add(resolved);
+    return true;
+  });
 }
 
 function copyEntry(name, target) {
@@ -35,12 +83,29 @@ function copyEntry(name, target) {
   fs.cpSync(source, dest, { recursive: true });
 }
 
-function install(target = defaultTarget()) {
+function installOne(target) {
   fs.mkdirSync(target, { recursive: true });
-  for (const entry of ["SKILL.md", "BENCHMARKS.md", "CONTRIBUTING.md", "SECURITY.md", "SUPPORT.md", "agents", "references", "scripts", "benchmarks", "docs"]) {
+  for (const entry of installEntries) {
     copyEntry(entry, target);
   }
-  console.log(`Installed Slopbeth ${version} to ${target}`);
+}
+
+function install(target) {
+  if (target) {
+    installOne(target);
+    console.log(`Installed Slopbeth ${version} to ${target}`);
+    return;
+  }
+
+  const targets = defaultTargets();
+  for (const item of targets) {
+    installOne(item.target);
+  }
+
+  console.log(`Installed Slopbeth ${version} to ${targets.length} target${targets.length === 1 ? "" : "s"}:`);
+  for (const item of targets) {
+    console.log(`- ${item.agent}: ${item.target}`);
+  }
 }
 
 function countJsonl(file) {
@@ -178,7 +243,7 @@ const [command, maybeTarget] = process.argv.slice(2);
 
 if (!command || command === "help" || command === "--help" || command === "-h") {
   usage();
-} else if (command === "install") {
+} else if (command === "install" || command === "installnpx") {
   install(maybeTarget);
 } else if (command === "doctor") {
   doctor();

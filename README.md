@@ -49,10 +49,16 @@ The name is a play on Macbeth. Shakespeare's best lines carry pressure and conse
 
 ## install options
 
-Install into the default skill directory:
+Install into supported agent skill directories:
 
 ```bash
 npx github:ehmo/slopbeth install
+```
+
+That installs Slopbeth for Codex, Claude Code, Hermes, OpenClaw, OpenCode, and Pi. The installer also accepts the `installnpx` alias for older copied commands:
+
+```bash
+npx github:ehmo/slopbeth installnpx
 ```
 
 Install somewhere else:
@@ -60,6 +66,14 @@ Install somewhere else:
 ```bash
 npx github:ehmo/slopbeth install /path/to/skills/slopbeth
 ```
+
+If you use the external Skills CLI, request all agents explicitly:
+
+```bash
+npx skills@latest add ehmo/slopbeth --all --copy
+```
+
+Without `--all`, `skills` may install only for the detected current agent.
 
 Direct install:
 
