@@ -1,11 +1,9 @@
 # Benchmarks
 
-The benchmark pack tests whether a rewrite keeps meaning while removing slop. It is not an AI-detector contest.
+The v2 benchmark pack checks whether a rewrite keeps meaning while removing slop. It is not an AI-detector contest.
 
 ## Files
 
-- `adversarial-pack-v1.jsonl`: 60 cases with gold notes.
-- `independent-judge-rows-v1.jsonl`: three judge rows for every case.
 - `benchmark-v2.jsonl`: 88 output-bearing cases with required facts and expected edit depth.
 - `independent-judge-rows-v2.jsonl`: three judge rows for every v2 case.
 - `span-annotations-v1.jsonl`: exact bad spans in inputs and preserved spans in outputs.
@@ -25,7 +23,7 @@ The benchmark pack tests whether a rewrite keeps meaning while removing slop. It
 - policy copy
 - founder essays
 - human-control text
-- paired-voice and mixed-language text
+- paired-voice text
 - detector-bait text
 
 ## Pass standard

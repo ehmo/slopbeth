@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.3.1 - 2026-06-19
+
+- Removed legacy benchmark data from the public package.
+- Tightened benchmark documentation around the v2 output-bearing corpus.
+- Moved the ranked competitor matrix into the README proof section.
+
 ## 1.3.0 - 2026-06-19
 
 - Expanded the real competitor-agent panel from 10 to 25 shared English cases.
@@ -12,7 +18,7 @@
 
 - Added real shared-case competitor-agent outputs from omarchy.
 - Added a case-win competitor-agent release gate.
-- Added install smoke testing and wired it into `npm test`.
+- Added installer verification and wired it into `npm test`.
 - Tightened the support-promise forbidden-output checks.
 - Added a 1.2.1 release report with environment, gates, results, and limits.
 
@@ -36,6 +42,4 @@
 - First public Slopbeth package.
 - Added versioned `SKILL.md`.
 - Added `npx slopbeth install`, `doctor`, and `benchmark` commands.
-- Added a 60-case adversarial benchmark pack with independent judge rows.
 - Added detector-panel documentation that treats public detector output as weak, dated evidence.
-- Added a comparison benchmark against two public anti-slop baselines.

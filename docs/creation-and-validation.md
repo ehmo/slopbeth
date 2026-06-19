@@ -17,14 +17,14 @@ The workflow used:
 - competitor-output scoring
 - real competitor-agent output scoring on `omarchy`
 - score snapshot reporting
-- install smoke testing
+- installer verification
 - detector-panel records
 - clean-room similarity scans
 - RAID smoke validation on `omarchy`
 - public repo, issue, and pull request review for benchmark ideas
 - academic and writing-craft literature review
 
-The shipped public gate is `node bin/slopbeth.js benchmark`. It checks the v1 prompt pack and runs the v2 output-bearing corpus through preservation, semantic-drift, signature, cadence, unsummarizability, span-annotation, false-positive, competitor-output, and competitor-agent checks. `node bin/slopbeth.js smoke` verifies that the installer copies the files needed for local use.
+The shipped public gate is `node bin/slopbeth.js benchmark`. It runs the v2 output-bearing corpus through preservation, semantic-drift, signature, cadence, unsummarizability, span-annotation, false-positive, competitor-output, and competitor-agent checks. `node bin/slopbeth.js smoke` verifies that the installer copies the files needed for local use.
 
 The detector-immunity gate was rejected as a release target because public detectors disagreed and one detector flagged a human-control sample. That result shaped the final rule: detectors are weak regression evidence, not the definition of good writing.
 
