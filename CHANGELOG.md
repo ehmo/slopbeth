@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.2.1 - 2026-06-19
+
+- Added real shared-case competitor-agent outputs from omarchy.
+- Added a case-win competitor-agent release gate.
+- Added install smoke testing and wired it into `npm test`.
+- Tightened the support-promise forbidden-output checks.
+- Added a 1.2.1 release report with environment, gates, results, and limits.
+
 ## 1.2.0 - 2026-06-19
 
 - Added span-level annotation checks for long and risky English benchmark rows.

@@ -66,9 +66,11 @@ This package includes:
 - `benchmarks/span-annotations-v1.jsonl`: exact bad-span and preserved-span annotations for long and risky rows.
 - `benchmarks/false-positive-tracker-v1.jsonl`: examples Slopbeth should leave alone or edit only lightly.
 - `benchmarks/competitor-output-runs-v1.jsonl`: shared-case output panel against public-rule baselines.
+- `benchmarks/competitor-agent-runs-v1.jsonl`: real shared-case competitor-agent outputs from omarchy.
 - `benchmarks/competitor-matrix-v2.md`: a rule, evidence, and package matrix against public anti-slop baselines.
 - `benchmarks/public-detector-panel-v1.md`: public detector evidence, framed as weak evidence.
 - `docs/literature-basis.md`: research and writing-craft basis for the benchmark gates.
+- `docs/release-report-v1.2.1.md`: release gate summary, environment, and limits.
 
 Run:
 
@@ -82,7 +84,7 @@ or:
 node bin/slopbeth.js benchmark
 ```
 
-Slopbeth was built by benchmark-driven iteration, not by model training. The shipped package test runs the v2 corpus through schema, preservation, semantic-drift, signature, cadence, unsummarizability, span-annotation, false-positive, and competitor-output gates. Detector immunity is not claimed.
+Slopbeth was built by benchmark-driven iteration, not by model training. The shipped package test runs the v2 corpus through schema, preservation, semantic-drift, signature, cadence, unsummarizability, span-annotation, false-positive, competitor-output, competitor-agent, and install-smoke gates. Detector immunity is not claimed.
 
 ## Package shape
 
