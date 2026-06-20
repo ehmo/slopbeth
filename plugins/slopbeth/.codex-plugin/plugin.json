@@ -1,0 +1,37 @@
+{
+  "name": "slopbeth",
+  "version": "1.3.6",
+  "description": "Remove AI-writing tells while preserving meaning, voice, and density.",
+  "author": {
+    "name": "ehmo",
+    "url": "https://github.com/ehmo"
+  },
+  "homepage": "https://github.com/ehmo/slopbeth#readme",
+  "repository": "https://github.com/ehmo/slopbeth",
+  "license": "MIT",
+  "keywords": [
+    "writing",
+    "skill",
+    "anti-slop",
+    "editing",
+    "rewriting"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Slopbeth",
+    "shortDescription": "Remove AI-writing tells while preserving meaning and voice.",
+    "longDescription": "Slopbeth rewrites and reviews prose by preserving sourced facts, cutting unsupported claims, protecting voice, and avoiding detector-chasing tricks.",
+    "developerName": "ehmo",
+    "category": "Productivity",
+    "capabilities": [
+      "Read",
+      "Write"
+    ],
+    "websiteURL": "https://github.com/ehmo/slopbeth",
+    "defaultPrompt": [
+      "Use Slopbeth to rewrite this while preserving facts, dates, numbers, uncertainty, and my voice.",
+      "Use Slopbeth to review this for unsupported claims, bland-clean sentences, and AI-writing tells."
+    ],
+    "brandColor": "#111827"
+  }
+}

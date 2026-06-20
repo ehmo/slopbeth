@@ -23,12 +23,15 @@
     "slopbeth": "bin/slopbeth.js"
   },
   "files": [
+    ".agents",
+    ".claude-plugin",
     "SKILL.md",
     "agents",
     "assets",
     "benchmarks",
     "bin",
     "docs",
+    "plugins",
     "references",
     "scripts/*.py",
     "BENCHMARKS.md",

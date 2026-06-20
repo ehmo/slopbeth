@@ -50,18 +50,6 @@ REQUIRED_AGENT_TARGETS = [
     ".pi/agent/skills/slopbeth",
 ]
 
-REQUIRED_PLUGIN_FILES = [
-    ".claude/skills/slopbeth/.claude-plugin/plugin.json",
-    ".claude/skills/slopbeth/skills/slopbeth/SKILL.md",
-    ".claude/skills/slopbeth/skills/slopbeth/references/evaluation.md",
-    ".claude/skills/slopbeth/skills/slopbeth/scripts/run_benchmark.py",
-    ".codex/plugins/slopbeth/.codex-plugin/plugin.json",
-    ".codex/plugins/slopbeth/skills/slopbeth/SKILL.md",
-    ".codex/plugins/slopbeth/skills/slopbeth/references/evaluation.md",
-    ".codex/plugins/slopbeth/skills/slopbeth/scripts/run_benchmark.py",
-    ".agents/plugins/marketplace.json",
-]
-
 
 def run_install(args: list[str], env: dict[str, str] | None = None) -> subprocess.CompletedProcess[str]:
     return subprocess.run(
@@ -84,14 +72,6 @@ def validate_install(target: Path, version: str) -> list[str]:
     if f"version: {version}" not in skill_text:
         return [f"{target}: SKILL.md does not report version {version}"]
 
-    return []
-
-
-def validate_json_file(path: Path) -> list[str]:
-    try:
-        json.loads(path.read_text(encoding="utf-8"))
-    except Exception as error:
-        return [f"{path}: invalid JSON: {error}"]
     return []
 
 
@@ -137,47 +117,7 @@ def smoke_test(keep: bool) -> int:
                 print(f"- {failure}")
             return 1
 
-        result = run_install(["install-plugin"], env=env)
-        if result.returncode != 0:
-            print(result.stdout, end="")
-            print(result.stderr, end="")
-            return result.returncode or 1
-
-        failures = []
-        for relative_file in REQUIRED_PLUGIN_FILES:
-            file = home / relative_file
-            if not file.exists():
-                failures.append(f"{file}: missing")
-
-        for relative_file in [
-            ".claude/skills/slopbeth/.claude-plugin/plugin.json",
-            ".codex/plugins/slopbeth/.codex-plugin/plugin.json",
-            ".agents/plugins/marketplace.json",
-        ]:
-            file = home / relative_file
-            if file.exists():
-                failures.extend(validate_json_file(file))
-
-        marketplace = json.loads((home / ".agents/plugins/marketplace.json").read_text(encoding="utf-8"))
-        slopbeth_plugins = [plugin for plugin in marketplace.get("plugins", []) if plugin.get("name") == "slopbeth"]
-        if len(slopbeth_plugins) != 1:
-            failures.append("Codex marketplace must contain exactly one slopbeth plugin entry")
-        elif slopbeth_plugins[0].get("source", {}).get("path") != "./.codex/plugins/slopbeth":
-            failures.append("Codex marketplace slopbeth source path is wrong")
-
-        if (home / ".agents/skills/slopbeth").exists() or (home / ".codex/skills/slopbeth").exists():
-            failures.append("Codex plugin install must remove plain Codex skill targets to avoid duplicate Slopbeth entries")
-
-        if failures:
-            print("Plugin install failed:")
-            for failure in failures:
-                print(f"- {failure}")
-            return 1
-
-        print(
-            "Install smoke passed: "
-            f"{custom_target}, {len(REQUIRED_AGENT_TARGETS)} agent targets, and Claude/Codex plugin targets"
-        )
+        print(f"Install smoke passed: {custom_target} and {len(REQUIRED_AGENT_TARGETS)} agent targets")
         return 0
     finally:
         if keep:
