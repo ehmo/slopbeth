@@ -61,6 +61,31 @@ That installs Slopbeth for Codex, Claude Code, Hermes, OpenClaw, OpenCode, and P
 npx github:ehmo/slopbeth installnpx
 ```
 
+Install as Claude Code and Codex plugins:
+
+```bash
+npx github:ehmo/slopbeth install-plugin
+```
+
+Install only one plugin target:
+
+```bash
+npx github:ehmo/slopbeth install-plugin claude
+npx github:ehmo/slopbeth install-plugin codex
+```
+
+The Claude plugin is installed as a skills-directory plugin. The Codex plugin is installed under `~/.codex/plugins/slopbeth` and added to `~/.agents/plugins/marketplace.json`.
+
+Marketplace install options:
+
+```text
+Claude Code: /plugin marketplace add ehmo/slopbeth
+Claude Code: /plugin install slopbeth@slopbeth
+
+Codex CLI: codex plugin marketplace add ehmo/slopbeth
+Codex CLI: open /plugins and install Slopbeth from the Slopbeth marketplace
+```
+
 Install somewhere else:
 
 ```bash

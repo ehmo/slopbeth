@@ -14,6 +14,8 @@ function usage() {
 Usage:
   slopbeth install [target-dir]
   slopbeth installnpx [target-dir]
+  slopbeth install-plugin [all|claude|codex]
+  slopbeth plugin install [all|claude|codex]
   slopbeth doctor
   slopbeth benchmark
   slopbeth smoke
@@ -24,6 +26,10 @@ Default install:
 
 Custom install:
   slopbeth install /path/to/skills/slopbeth
+
+Plugin install:
+  Installs Slopbeth as a Claude Code skills-directory plugin and/or a
+  Codex personal plugin with marketplace metadata.
 `);
 }
 
@@ -34,6 +40,7 @@ const installEntries = [
   "SECURITY.md",
   "SUPPORT.md",
   "agents",
+  "assets",
   "references",
   "scripts",
   "benchmarks",
@@ -108,6 +115,157 @@ function install(target) {
   }
 }
 
+function pluginManifest(agent) {
+  const base = {
+    name: "slopbeth",
+    version,
+    description: "Remove AI-writing tells while preserving meaning, voice, and density.",
+    author: {
+      name: "ehmo",
+      url: "https://github.com/ehmo"
+    },
+    homepage: "https://github.com/ehmo/slopbeth#readme",
+    repository: "https://github.com/ehmo/slopbeth",
+    license: "MIT",
+    keywords: ["writing", "skill", "anti-slop", "editing", "rewriting"],
+    skills: "./skills/"
+  };
+
+  if (agent === "claude") {
+    return {
+      ...base,
+      displayName: "Slopbeth"
+    };
+  }
+
+  return {
+    ...base,
+    interface: {
+      displayName: "Slopbeth",
+      shortDescription: "Remove AI-writing tells while preserving meaning and voice.",
+      longDescription: "Slopbeth rewrites and reviews prose by preserving sourced facts, cutting unsupported claims, protecting voice, and avoiding detector-chasing tricks.",
+      developerName: "ehmo",
+      category: "Productivity",
+      capabilities: ["Read", "Write"],
+      websiteURL: "https://github.com/ehmo/slopbeth",
+      defaultPrompt: [
+        "Use Slopbeth to rewrite this while preserving facts, dates, numbers, uncertainty, and my voice.",
+        "Use Slopbeth to review this for unsupported claims, bland-clean sentences, and AI-writing tells."
+      ],
+      brandColor: "#111827"
+    }
+  };
+}
+
+function writeJson(file, value) {
+  fs.mkdirSync(path.dirname(file), { recursive: true });
+  fs.writeFileSync(`${file}.tmp`, `${JSON.stringify(value, null, 2)}\n`);
+  fs.renameSync(`${file}.tmp`, file);
+}
+
+function readJson(file, fallback) {
+  if (!fs.existsSync(file)) return fallback;
+  try {
+    return JSON.parse(fs.readFileSync(file, "utf8"));
+  } catch (error) {
+    throw new Error(`${file}: invalid JSON: ${error.message}`);
+  }
+}
+
+function installPluginSkill(target) {
+  fs.rmSync(target, { force: true, recursive: true });
+  fs.mkdirSync(path.join(target, "skills", "slopbeth"), { recursive: true });
+  for (const entry of installEntries) {
+    copyEntry(entry, path.join(target, "skills", "slopbeth"));
+  }
+}
+
+function installClaudePlugin() {
+  const target = path.join(os.homedir(), ".claude", "skills", "slopbeth");
+  installPluginSkill(target);
+  writeJson(path.join(target, ".claude-plugin", "plugin.json"), pluginManifest("claude"));
+  return target;
+}
+
+function codexMarketplaceEntry() {
+  return {
+    name: "slopbeth",
+    source: {
+      source: "local",
+      path: "./.codex/plugins/slopbeth"
+    },
+    policy: {
+      installation: "INSTALLED_BY_DEFAULT",
+      authentication: "ON_INSTALL"
+    },
+    category: "Productivity",
+    interface: {
+      displayName: "Slopbeth",
+      shortDescription: "Remove AI-writing tells while preserving meaning and voice."
+    }
+  };
+}
+
+function updateCodexMarketplace() {
+  const marketplaceFile = path.join(os.homedir(), ".agents", "plugins", "marketplace.json");
+  const marketplace = readJson(marketplaceFile, {
+    name: "personal-plugins",
+    interface: {
+      displayName: "Personal Plugins"
+    },
+    plugins: []
+  });
+
+  if (!Array.isArray(marketplace.plugins)) {
+    marketplace.plugins = [];
+  }
+
+  marketplace.plugins = marketplace.plugins.filter((plugin) => plugin && plugin.name !== "slopbeth");
+  marketplace.plugins.push(codexMarketplaceEntry());
+  writeJson(marketplaceFile, marketplace);
+  return marketplaceFile;
+}
+
+function installCodexPlugin() {
+  const target = path.join(os.homedir(), ".codex", "plugins", "slopbeth");
+  installPluginSkill(target);
+  writeJson(path.join(target, ".codex-plugin", "plugin.json"), pluginManifest("codex"));
+  const marketplaceFile = updateCodexMarketplace();
+
+  for (const staleTarget of [
+    path.join(os.homedir(), ".agents", "skills", "slopbeth"),
+    path.join(os.homedir(), ".codex", "skills", "slopbeth")
+  ]) {
+    fs.rmSync(staleTarget, { force: true, recursive: true });
+  }
+
+  return { target, marketplaceFile };
+}
+
+function installPlugins(which = "all") {
+  const normalized = (which || "all").toLowerCase();
+  if (!["all", "claude", "codex"].includes(normalized)) {
+    console.error(`Unknown plugin target: ${which}`);
+    usage();
+    process.exit(1);
+  }
+
+  const installed = [];
+  if (normalized === "all" || normalized === "claude") {
+    installed.push({ agent: "claude-code", target: installClaudePlugin() });
+  }
+  if (normalized === "all" || normalized === "codex") {
+    const result = installCodexPlugin();
+    installed.push({ agent: "codex", target: result.target });
+    installed.push({ agent: "codex-marketplace", target: result.marketplaceFile });
+  }
+
+  console.log(`Installed Slopbeth ${version} plugin support:`);
+  for (const item of installed) {
+    console.log(`- ${item.agent}: ${item.target}`);
+  }
+}
+
 function countJsonl(file) {
   return fs.readFileSync(file, "utf8").split("\n").filter(Boolean).length;
 }
@@ -148,6 +306,8 @@ function doctor() {
     "SECURITY.md",
     "SKILL.md",
     "SUPPORT.md",
+    ".agents/plugins/marketplace.json",
+    ".claude-plugin/marketplace.json",
     "assets/slopbeth.png",
     "agents/claude-code.yaml",
     "agents/codex.yaml",
@@ -172,6 +332,9 @@ function doctor() {
     "docs/branch-protection.md",
     "docs/false-positive-tracker.md",
     "docs/literature-basis.md",
+    "plugins/slopbeth/.claude-plugin/plugin.json",
+    "plugins/slopbeth/.codex-plugin/plugin.json",
+    "plugins/slopbeth/skills/slopbeth/SKILL.md",
     "scripts/attribution_scan.py",
     "scripts/ci_secret_scan.py",
     "scripts/score_snapshot.py"
@@ -239,12 +402,16 @@ function smoke() {
   console.log(`Slopbeth ${version} install smoke passed.`);
 }
 
-const [command, maybeTarget] = process.argv.slice(2);
+const [command, maybeTarget, extraTarget] = process.argv.slice(2);
 
 if (!command || command === "help" || command === "--help" || command === "-h") {
   usage();
 } else if (command === "install" || command === "installnpx") {
   install(maybeTarget);
+} else if (command === "install-plugin" || command === "plugin-install" || command === "install-plugins") {
+  installPlugins(maybeTarget);
+} else if (command === "plugin" && maybeTarget === "install") {
+  installPlugins(extraTarget);
 } else if (command === "doctor") {
   doctor();
 } else if (command === "benchmark") {
