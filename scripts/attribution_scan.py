@@ -33,7 +33,7 @@ def scan(root: Path) -> list[str]:
     for path in sorted(root.rglob("*")):
         if not path.is_file() or should_skip(path.relative_to(root)):
             continue
-        if path.name == "attribution_scan.py":
+        if path.name in {"attribution_scan.py", "Test-Attribution.ps1"}:
             continue
         try:
             text = path.read_text(encoding="utf-8")

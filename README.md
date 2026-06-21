@@ -108,6 +108,36 @@ cd slopbeth
 node bin/slopbeth.js install
 ```
 
+### PowerShell edition (no Node or Python required)
+
+Slopbeth ships a PowerShell 7 implementation alongside the Node/Python one, so
+you can run the same install, gates, and validators with only `pwsh` on PATH.
+Pick whichever runtime you have.
+
+```powershell
+git clone git@github.com:ehmo/slopbeth.git
+cd slopbeth
+pwsh -File bin/slopbeth.ps1 install        # installs into existing agent dirs (add -All for every agent)
+```
+
+The PowerShell scripts mirror the Python ones one-to-one (`scripts/*.ps1`) and
+take the same flags:
+
+```powershell
+pwsh -File scripts/Measure-Deslop.ps1 draft.txt --format json
+pwsh -File scripts/Compare-Preservation.ps1 original.txt rewrite.txt --format json
+pwsh -File scripts/Get-DensityReport.ps1 original.txt rewrite.txt --format json
+pwsh -File bin/slopbeth.ps1 benchmark      # runs every release gate
+```
+
+| Python + Node | PowerShell |
+| --- | --- |
+| `node bin/slopbeth.js <cmd>` | `pwsh -File bin/slopbeth.ps1 <cmd>` |
+| `python3 scripts/deslop_lint.py` | `pwsh -File scripts/Measure-Deslop.ps1` |
+| `python3 scripts/preservation_check.py` | `pwsh -File scripts/Compare-Preservation.ps1` |
+| `python3 scripts/density_report.py` | `pwsh -File scripts/Get-DensityReport.ps1` |
+| `python3 scripts/run_benchmark.py` | `pwsh -File scripts/Run-Benchmark.ps1` |
+
 Use it:
 
 ```text

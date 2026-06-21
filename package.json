@@ -34,6 +34,7 @@
     "plugins",
     "references",
     "scripts/*.py",
+    "scripts/*.ps1",
     "BENCHMARKS.md",
     "CODE_OF_CONDUCT.md",
     "CONTRIBUTING.md",
