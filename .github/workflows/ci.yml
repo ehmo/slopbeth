@@ -44,3 +44,29 @@ jobs:
         run: |
           python3 scripts/score_snapshot.py --output score-snapshot.md
           cat score-snapshot.md >> "$GITHUB_STEP_SUMMARY"
+
+  powershell:
+    name: powershell
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v4
+
+      - name: Show PowerShell version
+        shell: pwsh
+        run: $PSVersionTable.PSVersion.ToString()
+
+      - name: Run package gates (PowerShell edition)
+        shell: pwsh
+        run: |
+          pwsh -File bin/slopbeth.ps1 doctor
+          pwsh -File bin/slopbeth.ps1 benchmark
+          pwsh -File bin/slopbeth.ps1 smoke
+
+      - name: Attribution scan (PowerShell)
+        shell: pwsh
+        run: pwsh -File scripts/Test-Attribution.ps1
+
+      - name: Secret scan (PowerShell)
+        shell: pwsh
+        run: pwsh -File scripts/Test-Secret.ps1
