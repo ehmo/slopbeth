@@ -12,20 +12,27 @@ function usage() {
   console.log(`slopbeth ${version}
 
 Usage:
-  slopbeth install [target-dir]
-  slopbeth installnpx [target-dir]
+  slopbeth install [--all]           install into agent skill dirs (see below)
+  slopbeth install <target-dir>      install into <target-dir> (see below)
+  slopbeth installnpx [target-dir]   install into all supported agents (or a dir)
   slopbeth install-plugin [all|claude|codex]
   slopbeth plugin install [all|claude|codex]
   slopbeth doctor
   slopbeth benchmark
   slopbeth smoke
 
-Default install:
-  Installs Slopbeth into supported global agent skill directories for Codex,
-  Claude Code, Hermes, OpenClaw, OpenCode, and Pi.
+Default install (no arguments):
+  Installs only into agent skill directories that already exist under your home
+  (for example ~/.claude/skills/slopbeth). Agents you do not use are skipped.
+  Add --all to install into every supported agent (Codex, Claude Code, Hermes,
+  OpenClaw, OpenCode, Pi) whether or not their directories exist yet.
 
 Custom install:
-  slopbeth install /path/to/skills/slopbeth
+  slopbeth install /path/to/dir
+  If <dir> already contains agent config dirs (.claude, .codex, .agents,
+  .hermes, .openclaw, .config/opencode, .pi), Slopbeth installs into each of
+  their skills/slopbeth subdirs. Otherwise <dir> is treated as the skill
+  directory and files are copied directly into it.
 
 Plugin install:
   Installs Slopbeth as a Claude Code skills-directory plugin and/or a
@@ -51,23 +58,19 @@ function xdgConfigHome() {
   return process.env.XDG_CONFIG_HOME || path.join(os.homedir(), ".config");
 }
 
-function defaultTargets() {
+// Build the agent skill targets rooted at baseDir (OpenCode under xdgDir).
+// Each target carries a `marker`: the agent's root dir under baseDir. Callers
+// decide whether to filter by marker existence.
+function agentTargets(baseDir, xdgDir) {
   const targets = [
-    { agent: "codex", target: path.join(os.homedir(), ".agents", "skills", "slopbeth") },
-    { agent: "codex-legacy", target: path.join(os.homedir(), ".codex", "skills", "slopbeth") },
-    { agent: "claude-code", target: path.join(os.homedir(), ".claude", "skills", "slopbeth") },
-    { agent: "hermes", target: path.join(os.homedir(), ".hermes", "skills", "slopbeth") },
-    { agent: "openclaw", target: path.join(os.homedir(), ".openclaw", "skills", "slopbeth") },
-    { agent: "opencode", target: path.join(xdgConfigHome(), "opencode", "skills", "slopbeth") },
-    { agent: "pi", target: path.join(os.homedir(), ".pi", "agent", "skills", "slopbeth") }
+    { agent: "codex", marker: path.join(baseDir, ".agents"), target: path.join(baseDir, ".agents", "skills", "slopbeth") },
+    { agent: "codex-legacy", marker: path.join(baseDir, ".codex"), target: path.join(baseDir, ".codex", "skills", "slopbeth") },
+    { agent: "claude-code", marker: path.join(baseDir, ".claude"), target: path.join(baseDir, ".claude", "skills", "slopbeth") },
+    { agent: "hermes", marker: path.join(baseDir, ".hermes"), target: path.join(baseDir, ".hermes", "skills", "slopbeth") },
+    { agent: "openclaw", marker: path.join(baseDir, ".openclaw"), target: path.join(baseDir, ".openclaw", "skills", "slopbeth") },
+    { agent: "opencode", marker: path.join(xdgDir, "opencode"), target: path.join(xdgDir, "opencode", "skills", "slopbeth") },
+    { agent: "pi", marker: path.join(baseDir, ".pi"), target: path.join(baseDir, ".pi", "agent", "skills", "slopbeth") }
   ];
-
-  if (process.env.SLOPBETH_SKILLS_DIR) {
-    targets.push({
-      agent: "custom",
-      target: path.join(process.env.SLOPBETH_SKILLS_DIR, "slopbeth")
-    });
-  }
 
   return dedupeTargets(targets);
 }
@@ -97,22 +100,53 @@ function installOne(target) {
   }
 }
 
-function install(target) {
+function printInstallSummary(targets, lead) {
+  console.log(`${lead} ${targets.length} target${targets.length === 1 ? "" : "s"}:`);
+  for (const item of targets) {
+    console.log(`- ${item.agent}: ${item.target}`);
+  }
+}
+
+function install(target, all) {
   if (target) {
+    // If the target already contains agent config dirs, install into their
+    // skills/slopbeth subdirs; otherwise treat the target as the skill dir.
+    const present = agentTargets(target, path.join(target, ".config"))
+      .filter(({ marker }) => fs.existsSync(marker));
+    if (present.length) {
+      for (const item of present) {
+        installOne(item.target);
+      }
+      printInstallSummary(present, `Installed Slopbeth ${version} into ${target} across`);
+      return;
+    }
     installOne(target);
     console.log(`Installed Slopbeth ${version} to ${target}`);
     return;
   }
 
-  const targets = defaultTargets();
+  let targets = agentTargets(os.homedir(), xdgConfigHome());
+  if (process.env.SLOPBETH_SKILLS_DIR) {
+    targets.push({
+      agent: "custom",
+      marker: process.env.SLOPBETH_SKILLS_DIR,
+      target: path.join(process.env.SLOPBETH_SKILLS_DIR, "slopbeth")
+    });
+  }
+
+  if (!all) {
+    targets = targets.filter(({ agent, marker }) => agent === "custom" || fs.existsSync(marker));
+    if (targets.length === 0) {
+      console.log(`No known agent directories found under ${os.homedir()}.`);
+      console.log("Use 'install --all' to install for every supported agent, or 'install <dir>' for a specific path.");
+      return;
+    }
+  }
+
   for (const item of targets) {
     installOne(item.target);
   }
-
-  console.log(`Installed Slopbeth ${version} to ${targets.length} target${targets.length === 1 ? "" : "s"}:`);
-  for (const item of targets) {
-    console.log(`- ${item.agent}: ${item.target}`);
-  }
+  printInstallSummary(targets, `Installed Slopbeth ${version} to`);
 }
 
 function pluginManifest(agent) {
@@ -407,7 +441,14 @@ const [command, maybeTarget, extraTarget] = process.argv.slice(2);
 if (!command || command === "help" || command === "--help" || command === "-h") {
   usage();
 } else if (command === "install" || command === "installnpx") {
-  install(maybeTarget);
+  let all = command === "installnpx";
+  let target = null;
+  for (const arg of [maybeTarget, extraTarget]) {
+    if (!arg) continue;
+    if (arg === "--all" || arg === "-a" || arg === "-All" || arg === "-all") all = true;
+    else target = arg;
+  }
+  install(target, all);
 } else if (command === "install-plugin" || command === "plugin-install" || command === "install-plugins") {
   installPlugins(maybeTarget);
 } else if (command === "plugin" && maybeTarget === "install") {
