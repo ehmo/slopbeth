@@ -12,6 +12,7 @@ The question is simple: did the rewrite become more specific, more truthful, and
 - 12 false-positive rows for text that should be left alone or edited lightly
 - 25 real competitor-agent cases from a remote test host
 - 125 real competitor-agent outputs across five skills
+- 12 Orwell before/after rows for the six-rule writing system (see below)
 
 ## current result
 
@@ -54,6 +55,29 @@ The real panel runs the same 25 English cases through five public writing skills
 The panel covers incident notes, policy copy, founder notes, academic summaries, support replies, marketing proof gaps, fake clarity, human-control rows, voice preservation, detector bait, and risky technical claims.
 
 Raw outputs are stored in `benchmarks/competitor-agent-runs-v1.jsonl`.
+
+## Orwell writing-system suite
+
+A second, smaller before/after corpus checks generation quality against Orwell's six rules from "Politics and the English Language" (1946). It is a supplement to the v2 release corpus, not a replacement.
+
+- `benchmarks/orwell-writing-system-v1.jsonl`: 12 before/after rows across marketing, essay, technical, policy, support, memo, and adversarial copy
+- `scripts/orwell_lint.py` scores the five mechanical rules: dead metaphor, long word, deletable words, passive voice, jargon/foreign
+- `scripts/orwell_benchmark.py` requires targeted rows to cut total violations without dropping declared facts, and requires control rows to stay near-unedited
+
+Rule six ("break any of these rules sooner than say anything outright barbarous") is deliberately not scored. A licensed passive in policy or incident register, a precise long word, and a live metaphor are all correct, so per-rule counts are review signals, not a defect ledger. The corpus encodes this with control rows that must survive with near-zero edits.
+
+The measurable finding: existing deslop rewrites already drive long words, deletable phrases, and jargon toward zero but barely reduce passive voice, so rule four (active over passive) is the gap that belongs at generation time. `orwell_lint.py` exposes `passive_ratio` as a first-class metric for that reason.
+
+Run the Orwell gate on its own:
+
+```bash
+python3 scripts/orwell_benchmark.py \
+  --corpus benchmarks/orwell-writing-system-v1.jsonl \
+  --fail-gate \
+  --format json
+```
+
+It also runs as part of `node bin/slopbeth.js benchmark`.
 
 ## commands
 

@@ -354,7 +354,9 @@ function doctor() {
     "references/slop-taxonomy.md",
     "references/density-and-unsummarizability.md",
     "references/voice-and-preservation.md",
+    "references/writing-system.md",
     "benchmarks/benchmark-v2.jsonl",
+    "benchmarks/orwell-writing-system-v1.jsonl",
     "benchmarks/independent-judge-rows-v2.jsonl",
     "benchmarks/span-annotations-v1.jsonl",
     "benchmarks/false-positive-tracker-v1.jsonl",
@@ -373,11 +375,15 @@ function doctor() {
     "scripts/Compare-Preservation.ps1",
     "scripts/Get-DensityReport.ps1",
     "scripts/Measure-Deslop.ps1",
+    "scripts/Measure-Orwell.ps1",
+    "scripts/Measure-OrwellBenchmark.ps1",
     "scripts/Run-Benchmark.ps1",
     "scripts/SlopBeth.Common.ps1",
     "scripts/Test-Install.ps1",
     "scripts/attribution_scan.py",
     "scripts/ci_secret_scan.py",
+    "scripts/orwell_lint.py",
+    "scripts/orwell_benchmark.py",
     "scripts/score_snapshot.py"
   ];
 
@@ -434,8 +440,10 @@ function benchmark() {
   runCheck("python3", ["scripts/false_positive_check.py", "--tracker", "benchmarks/false-positive-tracker-v1.jsonl", "--fail-gate", "--format", "json"]);
   runCheck("python3", ["scripts/competitor_output_score.py", "--corpus", "benchmarks/benchmark-v2.jsonl", "--panel", "benchmarks/competitor-output-runs-v1.jsonl", "--fail-gate", "--format", "json"]);
   runCheck("python3", ["scripts/competitor_output_score.py", "--corpus", "benchmarks/benchmark-v2.jsonl", "--panel", "benchmarks/competitor-agent-runs-v1.jsonl", "--min-competitors", "5", "--min-cases", "25", "--min-slopbeth-case-win-rate", "0.7", "--fail-gate", "--format", "json"]);
+  runCheck("python3", ["scripts/orwell_benchmark.py", "--corpus", "benchmarks/orwell-writing-system-v1.jsonl", "--fail-gate", "--format", "json"]);
 
-  console.log(`Benchmark pack ready: ${v2Rows.length} v2 output-bearing cases, ${v2JudgeRows.length} v2 judge rows, plus span, false-positive, cadence, competitor-output, and competitor-agent gates.`);
+  const orwellRows = countJsonl(path.join(root, "benchmarks", "orwell-writing-system-v1.jsonl"));
+  console.log(`Benchmark pack ready: ${v2Rows.length} v2 output-bearing cases, ${v2JudgeRows.length} v2 judge rows, plus span, false-positive, cadence, competitor-output, competitor-agent, and Orwell writing-system (${orwellRows} before/after rows) gates.`);
 }
 
 function smoke() {

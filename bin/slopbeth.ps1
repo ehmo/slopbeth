@@ -256,13 +256,15 @@ function Invoke-Doctor {
         'BENCHMARKS.md', 'CODE_OF_CONDUCT.md', 'CONTRIBUTING.md', 'LICENSE', 'README.md', 'SECURITY.md', 'SKILL.md', 'SUPPORT.md',
         '.agents/plugins/marketplace.json', '.claude-plugin/marketplace.json', 'assets/slopbeth.png',
         'agents/claude-code.yaml', 'agents/codex.yaml', 'agents/hermes.yaml', 'agents/openclaw.yaml', 'agents/openai.yaml', 'agents/opencode.yaml', 'agents/pi.yaml',
-        'references/evaluation.md', 'references/slop-taxonomy.md', 'references/density-and-unsummarizability.md', 'references/voice-and-preservation.md',
+        'references/evaluation.md', 'references/slop-taxonomy.md', 'references/density-and-unsummarizability.md', 'references/voice-and-preservation.md', 'references/writing-system.md',
         'benchmarks/benchmark-v2.jsonl', 'benchmarks/independent-judge-rows-v2.jsonl', 'benchmarks/span-annotations-v1.jsonl',
         'benchmarks/false-positive-tracker-v1.jsonl', 'benchmarks/competitor-output-runs-v1.jsonl', 'benchmarks/competitor-agent-runs-v1.jsonl',
+        'benchmarks/orwell-writing-system-v1.jsonl',
         'benchmarks/score-snapshot.md', 'benchmarks/competitor-matrix-v2.md', 'benchmarks/public-detector-panel-v1.md',
         'docs/branch-protection.md', 'docs/false-positive-tracker.md', 'docs/literature-basis.md',
         'plugins/slopbeth/.claude-plugin/plugin.json', 'plugins/slopbeth/.codex-plugin/plugin.json', 'plugins/slopbeth/skills/slopbeth/SKILL.md',
-        'scripts/Test-Attribution.ps1', 'scripts/Test-Secret.ps1', 'scripts/New-ScoreSnapshot.ps1', 'scripts/SlopBeth.Common.ps1'
+        'scripts/Test-Attribution.ps1', 'scripts/Test-Secret.ps1', 'scripts/New-ScoreSnapshot.ps1', 'scripts/SlopBeth.Common.ps1',
+        'scripts/Measure-Orwell.ps1', 'scripts/Measure-OrwellBenchmark.ps1'
     )
     $missing = @($required | Where-Object { -not (Test-Path -LiteralPath (Join-Path $Root $_)) })
     if ($missing.Count) {
@@ -323,7 +325,11 @@ function Invoke-Benchmark {
     Invoke-Check 'Measure-CompetitorOutput.ps1' @('--corpus', $corpus, '--panel', (Join-Path $bm 'competitor-output-runs-v1.jsonl'), '--fail-gate', '--format', 'json')
     Invoke-Check 'Measure-CompetitorOutput.ps1' @('--corpus', $corpus, '--panel', (Join-Path $bm 'competitor-agent-runs-v1.jsonl'), '--min-competitors', '5', '--min-cases', '25', '--min-slopbeth-case-win-rate', '0.7', '--fail-gate', '--format', 'json')
 
-    [Console]::Out.WriteLine("Benchmark pack ready: $($v2Rows.Count) v2 output-bearing cases, $($v2JudgeRows.Count) v2 judge rows, plus span, false-positive, cadence, competitor-output, and competitor-agent gates.")
+    $orwellPack = Join-Path $bm 'orwell-writing-system-v1.jsonl'
+    $orwellRows = ConvertFrom-Jsonl $orwellPack
+    Invoke-Check 'Measure-OrwellBenchmark.ps1' @('--corpus', $orwellPack, '--fail-gate', '--format', 'json')
+
+    [Console]::Out.WriteLine("Benchmark pack ready: $($v2Rows.Count) v2 output-bearing cases, $($v2JudgeRows.Count) v2 judge rows, plus span, false-positive, cadence, competitor-output, competitor-agent, and Orwell writing-system ($($orwellRows.Count) before/after rows) gates.")
 }
 
 function Invoke-Smoke {
