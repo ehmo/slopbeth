@@ -3,9 +3,10 @@
 # Commands: install / installnpx / install-plugin / plugin install / doctor /
 # benchmark / smoke / help / --version.
 
-. "$PSScriptRoot/../scripts/SlopBeth.Common.ps1"
+. "$PSScriptRoot/../skills/slopbeth/scripts/SlopBeth.Common.ps1"
 
 $Root = Split-Path $PSScriptRoot -Parent
+$SkillRoot = Join-Path $Root 'skills' 'slopbeth'
 $Version = (Read-TextFile (Join-Path $Root 'package.json') | ConvertFrom-Json).version
 
 $InstallEntries = @('SKILL.md', 'BENCHMARKS.md', 'CONTRIBUTING.md', 'SECURITY.md', 'SUPPORT.md',
@@ -80,7 +81,7 @@ function Get-AgentTargets {
 
 function Copy-Entry {
     param([string]$Name, [string]$Target)
-    $source = Join-Path $Root $Name
+    $source = Join-Path $SkillRoot $Name
     $dest = Join-Path $Target $Name
     if (-not (Test-Path -LiteralPath $source)) { return }
     if (Test-Path -LiteralPath $dest) { Remove-Item -LiteralPath $dest -Recurse -Force }
@@ -253,18 +254,22 @@ function Install-Plugins {
 
 function Invoke-Doctor {
     $required = @(
-        'BENCHMARKS.md', 'CODE_OF_CONDUCT.md', 'CONTRIBUTING.md', 'LICENSE', 'README.md', 'SECURITY.md', 'SKILL.md', 'SUPPORT.md',
-        '.agents/plugins/marketplace.json', '.claude-plugin/marketplace.json', 'assets/slopbeth.png',
-        'agents/claude-code.yaml', 'agents/codex.yaml', 'agents/hermes.yaml', 'agents/openclaw.yaml', 'agents/openai.yaml', 'agents/opencode.yaml', 'agents/pi.yaml',
-        'references/evaluation.md', 'references/slop-taxonomy.md', 'references/density-and-unsummarizability.md', 'references/voice-and-preservation.md', 'references/writing-system.md',
-        'benchmarks/benchmark-v2.jsonl', 'benchmarks/independent-judge-rows-v2.jsonl', 'benchmarks/span-annotations-v1.jsonl',
-        'benchmarks/false-positive-tracker-v1.jsonl', 'benchmarks/competitor-output-runs-v1.jsonl', 'benchmarks/competitor-agent-runs-v1.jsonl',
-        'benchmarks/orwell-writing-system-v1.jsonl',
-        'benchmarks/score-snapshot.md', 'benchmarks/competitor-matrix-v2.md', 'benchmarks/public-detector-panel-v1.md',
-        'docs/branch-protection.md', 'docs/false-positive-tracker.md', 'docs/literature-basis.md',
+        # Repo infrastructure (root-relative)
+        'CODE_OF_CONDUCT.md', 'LICENSE', 'README.md',
+        '.agents/plugins/marketplace.json', '.claude-plugin/marketplace.json',
         'plugins/slopbeth/.claude-plugin/plugin.json', 'plugins/slopbeth/.codex-plugin/plugin.json', 'plugins/slopbeth/skills/slopbeth/SKILL.md',
-        'scripts/Test-Attribution.ps1', 'scripts/Test-Secret.ps1', 'scripts/New-ScoreSnapshot.ps1', 'scripts/SlopBeth.Common.ps1',
-        'scripts/Measure-Orwell.ps1', 'scripts/Measure-OrwellBenchmark.ps1'
+        # Skill payload (under skills/slopbeth/)
+        'skills/slopbeth/BENCHMARKS.md', 'skills/slopbeth/CONTRIBUTING.md', 'skills/slopbeth/SECURITY.md', 'skills/slopbeth/SKILL.md', 'skills/slopbeth/SUPPORT.md',
+        'skills/slopbeth/assets/slopbeth.png',
+        'skills/slopbeth/agents/claude-code.yaml', 'skills/slopbeth/agents/codex.yaml', 'skills/slopbeth/agents/hermes.yaml', 'skills/slopbeth/agents/openclaw.yaml', 'skills/slopbeth/agents/openai.yaml', 'skills/slopbeth/agents/opencode.yaml', 'skills/slopbeth/agents/pi.yaml',
+        'skills/slopbeth/references/evaluation.md', 'skills/slopbeth/references/slop-taxonomy.md', 'skills/slopbeth/references/density-and-unsummarizability.md', 'skills/slopbeth/references/voice-and-preservation.md', 'skills/slopbeth/references/writing-system.md',
+        'skills/slopbeth/benchmarks/benchmark-v2.jsonl', 'skills/slopbeth/benchmarks/independent-judge-rows-v2.jsonl', 'skills/slopbeth/benchmarks/span-annotations-v1.jsonl',
+        'skills/slopbeth/benchmarks/false-positive-tracker-v1.jsonl', 'skills/slopbeth/benchmarks/competitor-output-runs-v1.jsonl', 'skills/slopbeth/benchmarks/competitor-agent-runs-v1.jsonl',
+        'skills/slopbeth/benchmarks/orwell-writing-system-v1.jsonl',
+        'skills/slopbeth/benchmarks/score-snapshot.md', 'skills/slopbeth/benchmarks/competitor-matrix-v2.md', 'skills/slopbeth/benchmarks/public-detector-panel-v1.md',
+        'skills/slopbeth/docs/branch-protection.md', 'skills/slopbeth/docs/false-positive-tracker.md', 'skills/slopbeth/docs/literature-basis.md',
+        'skills/slopbeth/scripts/Test-Attribution.ps1', 'skills/slopbeth/scripts/Test-Secret.ps1', 'skills/slopbeth/scripts/New-ScoreSnapshot.ps1', 'skills/slopbeth/scripts/SlopBeth.Common.ps1',
+        'skills/slopbeth/scripts/Measure-Orwell.ps1', 'skills/slopbeth/scripts/Measure-OrwellBenchmark.ps1'
     )
     $missing = @($required | Where-Object { -not (Test-Path -LiteralPath (Join-Path $Root $_)) })
     if ($missing.Count) {
@@ -276,7 +281,7 @@ function Invoke-Doctor {
 
 function Invoke-Check {
     param([string]$Script, [string[]]$CheckArgs)
-    $full = Join-Path $Root 'scripts' $Script
+    $full = Join-Path $SkillRoot 'scripts' $Script
     $output = & pwsh -NoProfile -File $full @CheckArgs 2>&1
     $code = $LASTEXITCODE
     if ($code -ne 0) {
@@ -286,7 +291,7 @@ function Invoke-Check {
 }
 
 function Invoke-Benchmark {
-    $bm = Join-Path $Root 'benchmarks'
+    $bm = Join-Path $SkillRoot 'benchmarks'
     $v2Pack = Join-Path $bm 'benchmark-v2.jsonl'
     $v2Judges = Join-Path $bm 'independent-judge-rows-v2.jsonl'
 

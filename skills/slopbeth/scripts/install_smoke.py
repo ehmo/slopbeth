@@ -12,7 +12,10 @@ import tempfile
 from pathlib import Path
 
 
-ROOT = Path(__file__).resolve().parents[1]
+# Repo root: skills/slopbeth/scripts/install_smoke.py -> parents[3].
+# bin/slopbeth.js and package.json live at the repo root, so the installer
+# smoke must run from there.
+ROOT = Path(__file__).resolve().parents[3]
 
 
 REQUIRED_INSTALLED_FILES = [

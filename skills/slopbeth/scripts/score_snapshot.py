@@ -10,7 +10,10 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 
+# Payload root (skills/slopbeth) holds scripts/ and benchmarks/; the repo root
+# (parents[3]) holds package.json.
 ROOT = Path(__file__).resolve().parents[1]
+REPO_ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT / "scripts"))
 
 import competitor_output_score  # noqa: E402
@@ -31,7 +34,7 @@ def competitor_summary(panel: str, min_competitors: int, min_cases: int, win_rat
 
 
 def markdown() -> str:
-    version = json.loads((ROOT / "package.json").read_text(encoding="utf-8"))["version"]
+    version = json.loads((REPO_ROOT / "package.json").read_text(encoding="utf-8"))["version"]
     v2_cases = count_jsonl(ROOT / "benchmarks" / "benchmark-v2.jsonl")
     v2_judges = count_jsonl(ROOT / "benchmarks" / "independent-judge-rows-v2.jsonl")
     spans = count_jsonl(ROOT / "benchmarks" / "span-annotations-v1.jsonl")

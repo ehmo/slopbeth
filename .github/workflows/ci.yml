@@ -35,14 +35,14 @@ jobs:
         run: npm pack --dry-run
 
       - name: Attribution scan
-        run: python3 scripts/attribution_scan.py
+        run: python3 skills/slopbeth/scripts/attribution_scan.py --root "$PWD"
 
       - name: Secret scan
-        run: python3 scripts/ci_secret_scan.py
+        run: python3 skills/slopbeth/scripts/ci_secret_scan.py --root "$PWD"
 
       - name: Write score snapshot
         run: |
-          python3 scripts/score_snapshot.py --output score-snapshot.md
+          python3 skills/slopbeth/scripts/score_snapshot.py --output score-snapshot.md
           cat score-snapshot.md >> "$GITHUB_STEP_SUMMARY"
 
   powershell:
@@ -65,8 +65,8 @@ jobs:
 
       - name: Attribution scan (PowerShell)
         shell: pwsh
-        run: pwsh -File scripts/Test-Attribution.ps1
+        run: pwsh -File skills/slopbeth/scripts/Test-Attribution.ps1 --root "$PWD"
 
       - name: Secret scan (PowerShell)
         shell: pwsh
-        run: pwsh -File scripts/Test-Secret.ps1
+        run: pwsh -File skills/slopbeth/scripts/Test-Secret.ps1 --root "$PWD"

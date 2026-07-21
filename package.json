@@ -1,6 +1,6 @@
 {
   "name": "slopbeth",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "An anti-slop writing skill that preserves facts, voice, and density.",
   "license": "MIT",
   "repository": {
@@ -25,23 +25,14 @@
   "files": [
     ".agents",
     ".claude-plugin",
-    "SKILL.md",
-    "agents",
-    "assets",
-    "benchmarks",
     "bin",
-    "docs",
     "plugins",
-    "references",
-    "scripts/*.py",
-    "scripts/*.ps1",
-    "BENCHMARKS.md",
+    "skills",
     "CODE_OF_CONDUCT.md",
-    "CONTRIBUTING.md",
     "LICENSE",
     "README.md",
-    "SECURITY.md",
-    "SUPPORT.md"
+    "!**/__pycache__",
+    "!**/*.pyc"
   ],
   "scripts": {
     "doctor": "node bin/slopbeth.js doctor",

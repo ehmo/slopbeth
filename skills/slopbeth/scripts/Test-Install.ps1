@@ -3,7 +3,9 @@
 
 . "$PSScriptRoot/SlopBeth.Common.ps1"
 
-$SmokeRoot = Split-Path $PSScriptRoot -Parent
+# Repo root: skills/slopbeth/scripts -> up three levels. bin/ and package.json
+# live at the repo root, so the installer smoke must drive the root CLI.
+$SmokeRoot = Split-Path (Split-Path (Split-Path $PSScriptRoot -Parent) -Parent) -Parent
 $SmokeCli = Join-Path $SmokeRoot 'bin' 'slopbeth.ps1'
 
 $SmokeRequiredInstalledFiles = @(

@@ -6,6 +6,7 @@ const path = require("path");
 const { spawnSync } = require("child_process");
 
 const root = path.resolve(__dirname, "..");
+const skillRoot = path.join(root, "skills", "slopbeth");
 const version = require(path.join(root, "package.json")).version;
 
 function usage() {
@@ -86,7 +87,7 @@ function dedupeTargets(targets) {
 }
 
 function copyEntry(name, target) {
-  const source = path.join(root, name);
+  const source = path.join(skillRoot, name);
   const dest = path.join(target, name);
   if (!fs.existsSync(source)) return;
   fs.rmSync(dest, { force: true, recursive: true });
@@ -319,7 +320,7 @@ function readJsonl(file) {
 
 function runCheck(command, args) {
   const result = spawnSync(command, args, {
-    cwd: root,
+    cwd: skillRoot,
     encoding: "utf8",
     stdio: "pipe"
   });
@@ -332,59 +333,61 @@ function runCheck(command, args) {
 
 function doctor() {
   const required = [
-    "BENCHMARKS.md",
+    // Repo infrastructure (root-relative)
     "CODE_OF_CONDUCT.md",
-    "CONTRIBUTING.md",
     "LICENSE",
     "README.md",
-    "SECURITY.md",
-    "SKILL.md",
-    "SUPPORT.md",
     ".agents/plugins/marketplace.json",
     ".claude-plugin/marketplace.json",
-    "assets/slopbeth.png",
-    "agents/claude-code.yaml",
-    "agents/codex.yaml",
-    "agents/hermes.yaml",
-    "agents/openclaw.yaml",
-    "agents/openai.yaml",
-    "agents/opencode.yaml",
-    "agents/pi.yaml",
-    "references/evaluation.md",
-    "references/slop-taxonomy.md",
-    "references/density-and-unsummarizability.md",
-    "references/voice-and-preservation.md",
-    "references/writing-system.md",
-    "benchmarks/benchmark-v2.jsonl",
-    "benchmarks/orwell-writing-system-v1.jsonl",
-    "benchmarks/independent-judge-rows-v2.jsonl",
-    "benchmarks/span-annotations-v1.jsonl",
-    "benchmarks/false-positive-tracker-v1.jsonl",
-    "benchmarks/competitor-output-runs-v1.jsonl",
-    "benchmarks/competitor-agent-runs-v1.jsonl",
-    "benchmarks/score-snapshot.md",
-    "benchmarks/competitor-matrix-v2.md",
-    "benchmarks/public-detector-panel-v1.md",
-    "docs/branch-protection.md",
-    "docs/false-positive-tracker.md",
-    "docs/literature-basis.md",
     "bin/slopbeth.ps1",
     "plugins/slopbeth/.claude-plugin/plugin.json",
     "plugins/slopbeth/.codex-plugin/plugin.json",
     "plugins/slopbeth/skills/slopbeth/SKILL.md",
-    "scripts/Compare-Preservation.ps1",
-    "scripts/Get-DensityReport.ps1",
-    "scripts/Measure-Deslop.ps1",
-    "scripts/Measure-Orwell.ps1",
-    "scripts/Measure-OrwellBenchmark.ps1",
-    "scripts/Run-Benchmark.ps1",
-    "scripts/SlopBeth.Common.ps1",
-    "scripts/Test-Install.ps1",
-    "scripts/attribution_scan.py",
-    "scripts/ci_secret_scan.py",
-    "scripts/orwell_lint.py",
-    "scripts/orwell_benchmark.py",
-    "scripts/score_snapshot.py"
+    // Skill payload (under skills/slopbeth/)
+    "skills/slopbeth/BENCHMARKS.md",
+    "skills/slopbeth/CONTRIBUTING.md",
+    "skills/slopbeth/SECURITY.md",
+    "skills/slopbeth/SKILL.md",
+    "skills/slopbeth/SUPPORT.md",
+    "skills/slopbeth/assets/slopbeth.png",
+    "skills/slopbeth/agents/claude-code.yaml",
+    "skills/slopbeth/agents/codex.yaml",
+    "skills/slopbeth/agents/hermes.yaml",
+    "skills/slopbeth/agents/openclaw.yaml",
+    "skills/slopbeth/agents/openai.yaml",
+    "skills/slopbeth/agents/opencode.yaml",
+    "skills/slopbeth/agents/pi.yaml",
+    "skills/slopbeth/references/evaluation.md",
+    "skills/slopbeth/references/slop-taxonomy.md",
+    "skills/slopbeth/references/density-and-unsummarizability.md",
+    "skills/slopbeth/references/voice-and-preservation.md",
+    "skills/slopbeth/references/writing-system.md",
+    "skills/slopbeth/benchmarks/benchmark-v2.jsonl",
+    "skills/slopbeth/benchmarks/orwell-writing-system-v1.jsonl",
+    "skills/slopbeth/benchmarks/independent-judge-rows-v2.jsonl",
+    "skills/slopbeth/benchmarks/span-annotations-v1.jsonl",
+    "skills/slopbeth/benchmarks/false-positive-tracker-v1.jsonl",
+    "skills/slopbeth/benchmarks/competitor-output-runs-v1.jsonl",
+    "skills/slopbeth/benchmarks/competitor-agent-runs-v1.jsonl",
+    "skills/slopbeth/benchmarks/score-snapshot.md",
+    "skills/slopbeth/benchmarks/competitor-matrix-v2.md",
+    "skills/slopbeth/benchmarks/public-detector-panel-v1.md",
+    "skills/slopbeth/docs/branch-protection.md",
+    "skills/slopbeth/docs/false-positive-tracker.md",
+    "skills/slopbeth/docs/literature-basis.md",
+    "skills/slopbeth/scripts/Compare-Preservation.ps1",
+    "skills/slopbeth/scripts/Get-DensityReport.ps1",
+    "skills/slopbeth/scripts/Measure-Deslop.ps1",
+    "skills/slopbeth/scripts/Measure-Orwell.ps1",
+    "skills/slopbeth/scripts/Measure-OrwellBenchmark.ps1",
+    "skills/slopbeth/scripts/Run-Benchmark.ps1",
+    "skills/slopbeth/scripts/SlopBeth.Common.ps1",
+    "skills/slopbeth/scripts/Test-Install.ps1",
+    "skills/slopbeth/scripts/attribution_scan.py",
+    "skills/slopbeth/scripts/ci_secret_scan.py",
+    "skills/slopbeth/scripts/orwell_lint.py",
+    "skills/slopbeth/scripts/orwell_benchmark.py",
+    "skills/slopbeth/scripts/score_snapshot.py"
   ];
 
   const missing = required.filter((entry) => !fs.existsSync(path.join(root, entry)));
@@ -396,8 +399,8 @@ function doctor() {
 }
 
 function benchmark() {
-  const v2Pack = path.join(root, "benchmarks", "benchmark-v2.jsonl");
-  const v2Judges = path.join(root, "benchmarks", "independent-judge-rows-v2.jsonl");
+  const v2Pack = path.join(skillRoot, "benchmarks", "benchmark-v2.jsonl");
+  const v2Judges = path.join(skillRoot, "benchmarks", "independent-judge-rows-v2.jsonl");
 
   const v2Rows = readJsonl(v2Pack);
   const v2JudgeRows = readJsonl(v2Judges);
@@ -442,7 +445,7 @@ function benchmark() {
   runCheck("python3", ["scripts/competitor_output_score.py", "--corpus", "benchmarks/benchmark-v2.jsonl", "--panel", "benchmarks/competitor-agent-runs-v1.jsonl", "--min-competitors", "5", "--min-cases", "25", "--min-slopbeth-case-win-rate", "0.7", "--fail-gate", "--format", "json"]);
   runCheck("python3", ["scripts/orwell_benchmark.py", "--corpus", "benchmarks/orwell-writing-system-v1.jsonl", "--fail-gate", "--format", "json"]);
 
-  const orwellRows = countJsonl(path.join(root, "benchmarks", "orwell-writing-system-v1.jsonl"));
+  const orwellRows = countJsonl(path.join(skillRoot, "benchmarks", "orwell-writing-system-v1.jsonl"));
   console.log(`Benchmark pack ready: ${v2Rows.length} v2 output-bearing cases, ${v2JudgeRows.length} v2 judge rows, plus span, false-positive, cadence, competitor-output, competitor-agent, and Orwell writing-system (${orwellRows} before/after rows) gates.`);
 }
 

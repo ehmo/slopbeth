@@ -5,7 +5,10 @@
 . "$PSScriptRoot/SlopBeth.Common.ps1"
 . "$PSScriptRoot/Measure-CompetitorOutput.ps1"
 
+# Payload root (skills/slopbeth) holds scripts/ and benchmarks/; the repo root
+# (up two more levels) holds package.json.
 $SnapRoot = Split-Path $PSScriptRoot -Parent
+$SnapRepoRoot = Split-Path (Split-Path $SnapRoot -Parent) -Parent
 
 function Get-SnapCompetitorSummary {
     param([string]$Panel, [int]$MinCompetitors, [int]$MinCases, $WinRate)
@@ -16,7 +19,7 @@ function Get-SnapCompetitorSummary {
 }
 
 function Get-SnapMarkdown {
-    $version = (Read-TextFile (Join-Path $SnapRoot 'package.json') | ConvertFrom-Json).version
+    $version = (Read-TextFile (Join-Path $SnapRepoRoot 'package.json') | ConvertFrom-Json).version
     $v2Cases = Get-JsonlCount (Join-Path $SnapRoot 'benchmarks/benchmark-v2.jsonl')
     $v2Judges = Get-JsonlCount (Join-Path $SnapRoot 'benchmarks/independent-judge-rows-v2.jsonl')
     $spans = Get-JsonlCount (Join-Path $SnapRoot 'benchmarks/span-annotations-v1.jsonl')
