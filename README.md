@@ -21,7 +21,7 @@ Ranked matrix:
 
 | Rank | Repo | Domain | Score | Strongest evidence | Limit |
 | ---: | --- | --- | ---: | --- | --- |
-| 1 | Slopbeth 1.3.6 | writing | 99 | 88-case v2 output corpus, 264 judge rows, span annotations, false-positive tracker, cadence gate, competitor-output panel, 25-case real competitor-agent panel, score snapshots, installer verification | English-first; detector panel remains weak evidence |
+| 1 | Slopbeth 1.4.0 | writing | 99 | 88-case v2 output corpus, 264 judge rows, span annotations, false-positive tracker, cadence gate, competitor-output panel, 25-case real competitor-agent panel, score snapshots, installer verification | English-first; detector panel remains weak evidence |
 | 2 | blader/humanizer | writing | 84 | broad pattern catalog and false-positive guidance | limited public benchmark evidence |
 | 3 | d-wwei/great-writer | writing modes | 78 | mode-specific writing lanes | limited fixture evidence |
 | 4 | willmather95/human-copy | writing | 74 | explicit eval checklist | checklist-only; no full release corpus found |
@@ -134,6 +134,7 @@ pwsh -File bin/slopbeth.ps1 benchmark      # runs every release gate
 | --- | --- |
 | `node bin/slopbeth.js <cmd>` | `pwsh -File bin/slopbeth.ps1 <cmd>` |
 | `python3 scripts/deslop_lint.py` | `pwsh -File scripts/Measure-Deslop.ps1` |
+| `python3 scripts/orwell_lint.py` | `pwsh -File scripts/Measure-Orwell.ps1` |
 | `python3 scripts/preservation_check.py` | `pwsh -File scripts/Compare-Preservation.ps1` |
 | `python3 scripts/density_report.py` | `pwsh -File scripts/Get-DensityReport.ps1` |
 | `python3 scripts/run_benchmark.py` | `pwsh -File scripts/Run-Benchmark.ps1` |
@@ -229,12 +230,14 @@ No brand lesson. No apology theater. No fake closure.
 - tidy formulas: not-just-but, whether-or, from-to, and polished three-part scaffolds
 - over-humanizing: contractions, fragments, and personal asides added only for detector optics
 - over-editing: rewriting plain human sentences that should be left alone
+- passive voice: actorless constructions that hide who did what, which Orwell's rule four flags for a stronger active rewrite
 
 ## what is included
 
 - a versioned writing skill
 - fact, evidence, and voice-preservation rules
 - density and unsummarizability rules
+- an Orwell six-rule writing system with a deterministic passive-voice lint (`scripts/orwell_lint.py`)
 - v2 benchmark artifacts
 - ranked competitor comparison
 - local scripts for people who want to inspect the evidence

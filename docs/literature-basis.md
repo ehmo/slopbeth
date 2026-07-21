@@ -54,8 +54,9 @@ Slopbeth treats "AI slop" as a writing-quality problem, not an authorship verdic
 - Gopen and Swan, scientific writing.
   - Scientific prose depends on reader expectation, old-to-new flow, and stress position.
 
-- Orwell, political prose essay.
+- Orwell, "Politics and the English Language" (1946).
   - Stale metaphor, pretentious diction, and evasive abstraction are useful failure labels.
+  - Slopbeth uses his six rules as a positive generation system, not a banned-word list: prefer the short word, cut deletable words, choose the active voice, drop printed-cliche metaphor and jargon, and break any rule sooner than write something graceless. `scripts/orwell_lint.py` scores the first five and treats the sixth as a human-review escape hatch, which is why a licensed passive or a precise long word is never a defect.
 
 ## Benchmark effects
 

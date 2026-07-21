@@ -9,7 +9,7 @@
       "name": "slopbeth",
       "source": "./plugins/slopbeth",
       "description": "Remove AI-writing tells while preserving meaning, voice, and density.",
-      "version": "1.3.6",
+      "version": "1.4.0",
       "author": {
         "name": "ehmo",
         "url": "https://github.com/ehmo"
