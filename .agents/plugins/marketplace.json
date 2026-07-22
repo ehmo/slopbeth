@@ -1,0 +1,40 @@
+{
+  "name": "slopkit",
+  "interface": {
+    "displayName": "Slopkit"
+  },
+  "plugins": [
+    {
+      "name": "slopbeth",
+      "source": {
+        "source": "local",
+        "path": "./plugins/slopbeth"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity",
+      "interface": {
+        "displayName": "Slopbeth",
+        "shortDescription": "Remove AI-writing tells while preserving meaning and voice."
+      }
+    },
+    {
+      "name": "slopgent",
+      "source": {
+        "source": "local",
+        "path": "./plugins/slopgent"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity",
+      "interface": {
+        "displayName": "Slopgent",
+        "shortDescription": "Honest, action-first, plain agent replies."
+      }
+    }
+  ]
+}

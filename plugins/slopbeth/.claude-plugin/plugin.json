@@ -1,0 +1,21 @@
+{
+  "name": "slopbeth",
+  "displayName": "Slopbeth",
+  "version": "1.4.1",
+  "description": "Remove AI-writing tells while preserving meaning, voice, and density.",
+  "author": {
+    "name": "ehmo",
+    "url": "https://github.com/ehmo"
+  },
+  "homepage": "https://github.com/ehmo/slopkit#readme",
+  "repository": "https://github.com/ehmo/slopkit",
+  "license": "MIT",
+  "keywords": [
+    "writing",
+    "skill",
+    "anti-slop",
+    "editing",
+    "rewriting"
+  ],
+  "skills": "./skills/"
+}

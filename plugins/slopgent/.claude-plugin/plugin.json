@@ -1,0 +1,21 @@
+{
+  "name": "slopgent",
+  "displayName": "Slopgent",
+  "version": "1.4.1",
+  "description": "Shape the agent's own replies so they are honest about what ran, action-first, and plain — without dropping load-bearing precision.",
+  "author": {
+    "name": "ehmo",
+    "url": "https://github.com/ehmo"
+  },
+  "homepage": "https://github.com/ehmo/slopkit#readme",
+  "repository": "https://github.com/ehmo/slopkit",
+  "license": "MIT",
+  "keywords": [
+    "conversation",
+    "skill",
+    "anti-slop",
+    "honesty",
+    "agent-replies"
+  ],
+  "skills": "./skills/"
+}

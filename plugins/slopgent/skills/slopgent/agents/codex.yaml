@@ -1,0 +1,4 @@
+interface:
+  display_name: "Slopgent"
+  short_description: "Shape the agent's own replies: honest, action-first, plain."
+  default_prompt: "Use $slopgent to keep replies honest about what ran, action-first, and plain."

@@ -1,0 +1,74 @@
+{
+  "sg-001": {
+    "A": "baseline",
+    "B": "i_have_adhd",
+    "C": "slopgent",
+    "D": "bro"
+  },
+  "sg-002": {
+    "A": "baseline",
+    "B": "i_have_adhd",
+    "C": "bro",
+    "D": "slopgent"
+  },
+  "sg-003": {
+    "A": "i_have_adhd",
+    "B": "bro",
+    "C": "slopgent",
+    "D": "baseline"
+  },
+  "sg-004": {
+    "A": "slopgent",
+    "B": "baseline",
+    "C": "i_have_adhd",
+    "D": "bro"
+  },
+  "sg-005": {
+    "A": "i_have_adhd",
+    "B": "baseline",
+    "C": "slopgent",
+    "D": "bro"
+  },
+  "sg-006": {
+    "A": "baseline",
+    "B": "slopgent",
+    "C": "bro",
+    "D": "i_have_adhd"
+  },
+  "sg-007": {
+    "A": "bro",
+    "B": "slopgent",
+    "C": "i_have_adhd",
+    "D": "baseline"
+  },
+  "sg-008": {
+    "A": "bro",
+    "B": "slopgent",
+    "C": "baseline",
+    "D": "i_have_adhd"
+  },
+  "sg-009": {
+    "A": "baseline",
+    "B": "i_have_adhd",
+    "C": "slopgent",
+    "D": "bro"
+  },
+  "sg-010": {
+    "A": "bro",
+    "B": "slopgent",
+    "C": "i_have_adhd",
+    "D": "baseline"
+  },
+  "sg-011": {
+    "A": "bro",
+    "B": "baseline",
+    "C": "slopgent",
+    "D": "i_have_adhd"
+  },
+  "sg-012": {
+    "A": "bro",
+    "B": "baseline",
+    "C": "slopgent",
+    "D": "i_have_adhd"
+  }
+}

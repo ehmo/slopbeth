@@ -1,0 +1,78 @@
+name: package
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: test
+    runs-on: ubicloud
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Show tool versions
+        run: |
+          node --version
+          npm --version
+          python3 --version
+
+      - name: Plugin mirror in sync
+        run: |
+          node scripts/sync-plugins.js
+          git diff --exit-code -- plugins/ \
+            || { echo "::error::plugins/ is out of sync with skills/. Run: node scripts/sync-plugins.js and commit."; exit 1; }
+
+      - name: Run package gates
+        run: npm test
+
+      - name: Pack dry run
+        run: npm pack --dry-run
+
+      - name: Attribution scan
+        run: python3 skills/slopbeth/scripts/attribution_scan.py --root "$PWD"
+
+      - name: Secret scan
+        run: python3 skills/slopbeth/scripts/ci_secret_scan.py --root "$PWD"
+
+      - name: Write score snapshot
+        run: |
+          python3 skills/slopbeth/scripts/score_snapshot.py --output score-snapshot.md
+          cat score-snapshot.md >> "$GITHUB_STEP_SUMMARY"
+
+  powershell:
+    name: powershell
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v4
+
+      - name: Show PowerShell version
+        shell: pwsh
+        run: $PSVersionTable.PSVersion.ToString()
+
+      - name: Run package gates (PowerShell edition)
+        shell: pwsh
+        run: |
+          pwsh -File bin/slopkit.ps1 doctor
+          pwsh -File bin/slopkit.ps1 benchmark
+          pwsh -File bin/slopkit.ps1 smoke
+
+      - name: Attribution scan (PowerShell)
+        shell: pwsh
+        run: pwsh -File skills/slopbeth/scripts/Test-Attribution.ps1 --root "$PWD"
+
+      - name: Secret scan (PowerShell)
+        shell: pwsh
+        run: pwsh -File skills/slopbeth/scripts/Test-Secret.ps1 --root "$PWD"

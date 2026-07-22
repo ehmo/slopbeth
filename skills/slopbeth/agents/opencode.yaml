@@ -1,0 +1,4 @@
+interface:
+  display_name: "Slopbeth"
+  short_description: "Rewrite and judge prose until AI slop is gone."
+  default_prompt: "Use $slopbeth to revise this draft while preserving my meaning and voice."

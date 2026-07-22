@@ -1,0 +1,72 @@
+{
+  "sg-001": {
+    "A": "verification_before_completion",
+    "B": "verification_gate",
+    "C": "honesty_protocol",
+    "D": "bro",
+    "E": "baseline",
+    "F": "slopgent",
+    "G": "matt_pocock_concise",
+    "H": "piebald_verify",
+    "I": "caveman",
+    "J": "aashari_zero_trust",
+    "K": "i_have_adhd",
+    "L": "honest_agent"
+  },
+  "sg-002": {
+    "A": "verification_gate",
+    "B": "piebald_verify",
+    "C": "bro",
+    "D": "caveman",
+    "E": "honesty_protocol",
+    "F": "baseline",
+    "G": "verification_before_completion",
+    "H": "aashari_zero_trust",
+    "I": "slopgent",
+    "J": "matt_pocock_concise",
+    "K": "i_have_adhd",
+    "L": "honest_agent"
+  },
+  "sg-003": {
+    "A": "verification_gate",
+    "B": "honesty_protocol",
+    "C": "aashari_zero_trust",
+    "D": "matt_pocock_concise",
+    "E": "slopgent",
+    "F": "bro",
+    "G": "caveman",
+    "H": "honest_agent",
+    "I": "verification_before_completion",
+    "J": "i_have_adhd",
+    "K": "piebald_verify",
+    "L": "baseline"
+  },
+  "sg-011": {
+    "A": "matt_pocock_concise",
+    "B": "slopgent",
+    "C": "bro",
+    "D": "i_have_adhd",
+    "E": "aashari_zero_trust",
+    "F": "caveman",
+    "G": "honesty_protocol",
+    "H": "verification_before_completion",
+    "I": "baseline",
+    "J": "piebald_verify",
+    "K": "verification_gate",
+    "L": "honest_agent"
+  },
+  "sg-012": {
+    "A": "verification_before_completion",
+    "B": "slopgent",
+    "C": "honest_agent",
+    "D": "matt_pocock_concise",
+    "E": "bro",
+    "F": "verification_gate",
+    "G": "caveman",
+    "H": "i_have_adhd",
+    "I": "baseline",
+    "J": "honesty_protocol",
+    "K": "piebald_verify",
+    "L": "aashari_zero_trust"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "name": "slopkit",
+  "owner": {
+    "name": "ehmo",
+    "url": "https://github.com/ehmo"
+  },
+  "plugins": [
+    {
+      "name": "slopbeth",
+      "source": "./plugins/slopbeth",
+      "description": "Remove AI-writing tells while preserving meaning, voice, and density.",
+      "version": "1.4.1",
+      "author": {
+        "name": "ehmo",
+        "url": "https://github.com/ehmo"
+      }
+    },
+    {
+      "name": "slopgent",
+      "source": "./plugins/slopgent",
+      "description": "Shape the agent's own replies so they are honest about what ran, action-first, and plain.",
+      "version": "1.4.1",
+      "author": {
+        "name": "ehmo",
+        "url": "https://github.com/ehmo"
+      }
+    }
+  ]
+}

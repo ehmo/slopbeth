@@ -1,0 +1,49 @@
+{
+  "name": "slopkit",
+  "version": "1.4.1",
+  "description": "Anti-slop skills for AI agents: slopbeth cleans the shipped writing, slopgent cleans the conversation.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/ehmo/slopkit.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ehmo/slopkit/issues"
+  },
+  "homepage": "https://github.com/ehmo/slopkit#readme",
+  "keywords": [
+    "writing",
+    "skill",
+    "anti-slop",
+    "editing",
+    "rewriting",
+    "conversation",
+    "honesty",
+    "benchmark"
+  ],
+  "bin": {
+    "slopkit": "bin/slopkit.js"
+  },
+  "files": [
+    ".agents",
+    ".claude-plugin",
+    "assets",
+    "bin",
+    "plugins",
+    "skills",
+    "CODE_OF_CONDUCT.md",
+    "LICENSE",
+    "README.md",
+    "!**/__pycache__",
+    "!**/*.pyc"
+  ],
+  "scripts": {
+    "doctor": "node bin/slopkit.js doctor",
+    "benchmark": "node bin/slopkit.js benchmark",
+    "smoke": "node bin/slopkit.js smoke",
+    "test": "node bin/slopkit.js doctor && node bin/slopkit.js benchmark && node bin/slopkit.js smoke"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
